@@ -19,7 +19,7 @@ public class Questionnaire {
 
     private Long questionnaireId;
     private String title;
-    private LocalDateTime publishTime;
+    private LocalDateTime timePublished;
     private LocalDateTime deadline;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionnaire")
     @JsonIgnoreProperties("questionnaire")
@@ -32,19 +32,19 @@ public class Questionnaire {
 
     public Questionnaire(String title, LocalDateTime publishTime, LocalDateTime deadline, List<Question> questions) {
         this.title = title;
-        this.publishTime = publishTime;
+        this.timePublished = publishTime;
         this.deadline = deadline;
         this.questions = questions;
     }
 
     // Getters and setters
 
-    public Long getId() {
-        return id;
+    public Long getQuestionnaireId() {
+        return questionnaireId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setQuestionnaireId(Long id) {
+        this.questionnaireId = id;
     }
 
     public String getTitle() {
@@ -55,12 +55,12 @@ public class Questionnaire {
         this.title = title;
     }
 
-    public LocalDateTime getPublishTime() {
-        return publishTime;
+    public LocalDateTime getTimePublished() {
+        return timePublished;
     }
 
-    public void setPublishTime(LocalDateTime publishTime) {
-        this.publishTime = publishTime;
+    public void setTimePublished(LocalDateTime publishTime) {
+        this.timePublished = publishTime;
     }
 
     public LocalDateTime getDeadline() {
@@ -82,7 +82,7 @@ public class Questionnaire {
     // To string
     @Override
     public String toString() {
-        return "Questionnaire [id=" + id + ", title=" + title + ", publishTime=" + publishTime + ", deadline="
+        return "Questionnaire [id=" + questionnaireId + ", title=" + title + ", publishTime=" + timePublished + ", deadline="
                 + deadline + "]";
     }
 
