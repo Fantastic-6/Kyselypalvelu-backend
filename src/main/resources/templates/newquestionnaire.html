@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fi">
+<html xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <title>Lisää kysely</title>
+</head>
+<body>
+    <form th:object="${q}" th:action="${/saveQuestionnaire}" method="post">
+        <label for="title">Kyselyn nimi</label>
+        <input id="title" type="text" th:field="{title}">
+        <label for="published">Alkamisajankohta</label>
+        <input id="published" type="datetime" th:field="{timePublished}">
+        <label for="deadline">Sulkeutumisajankohta</label>
+        <input id="deadline" type="datetime" th:field="{deadline}">
+        <input type="submit" value="Lisää kysely">
+    </form>
+</body>
+</html>
