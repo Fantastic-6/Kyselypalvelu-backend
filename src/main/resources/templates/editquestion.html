@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Question</title>
+</head>
+<body>
+    <div>
+
+        <h1>Edit a Question</h1>
+
+        <form th:method="post" action="#" th:action="@{savequestion}" method="post">
+            <label for="title">Question Text:</label><br>
+            <input type="text" id="title" name="title" required><br><br>
+            <label for="typeSelection">Question Type:</label><br>
+            <select id="typeSelection" name="typeSelection">
+                <option value="TEXT">Text</option>
+                <option value="MULTIPLE_CHOICE_CHECKBOX">Multiple Choice Checkbox</option>
+                <option value="RADIO_BUTTON">Radio Button</option>
+                <option value="SCALE_1-5">Scale 1-5</option>
+            </select><br><br>
+            <input type="number" id="priority" name="priority" placeholder="Priority" required><br><br>
+            <input type="hidden" id="surveyId" name="surveyId" th:value="${surveyId}">
+            <input type="submit" value="Add Question">
+
+        </form>
+
+    </div>
+</body>
+</html>
