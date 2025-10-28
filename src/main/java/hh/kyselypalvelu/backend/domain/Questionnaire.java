@@ -1,5 +1,6 @@
 package hh.kyselypalvelu.backend.domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class Questionnaire {
     private Long questionnaireId;
     private String title;
     private LocalDateTime timePublished;
-    private LocalDateTime deadline;
+    private LocalDate deadline;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionnaire")
     @JsonIgnoreProperties("questionnaire")
     private List<Question> questions;
@@ -30,7 +31,7 @@ public class Questionnaire {
     public Questionnaire() {
     }
 
-    public Questionnaire(String title, LocalDateTime publishTime, LocalDateTime deadline, List<Question> questions) {
+    public Questionnaire(String title, LocalDateTime publishTime, LocalDate deadline, List<Question> questions) {
         this.title = title;
         this.timePublished = publishTime;
         this.deadline = deadline;
@@ -63,11 +64,11 @@ public class Questionnaire {
         this.timePublished = publishTime;
     }
 
-    public LocalDateTime getDeadline() {
+    public LocalDate getDeadline() {
         return deadline;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
