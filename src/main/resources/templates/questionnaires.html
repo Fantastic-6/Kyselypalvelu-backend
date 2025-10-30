@@ -24,8 +24,8 @@
             <td th:text="${q.timePublished}"></td>
             <td th:text="${q.deadline}"></td>
             <td>(vastauksia)</td>
-            <td><a th:href="@{/editquestionnaire/{questionnaireId}(id=${q.questionnaireId})}" class="btn btn-primary"></a></td> <!--muokkaa-->
-            <td><a th:href="@{/deletequestionnaire/{questionnaireId}(id=${q.questionnaireId})}" class="btn btn-danger"></a></td> <!--poista-->
+            <td><a th:href="@{/editquestionnaire/{questionnaireId}(id=${q.questionnaireId})}" class="btn btn-primary">Muokkaa</a></td> <!--muokkaa-->
+            <td><a th:href="@{/deletequestionnaire/{questionnaireId}(id=${q.questionnaireId})}" class="btn btn-danger">Poista</a></td> <!--poista-->
         </tr>
     </table>
     <a href="/newquestionnaire" class="btn btn-success">Lisää kysely</a>

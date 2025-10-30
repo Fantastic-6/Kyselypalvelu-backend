@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
@@ -21,6 +23,7 @@ public class Questionnaire {
     private Long questionnaireId;
     private String title;
     private LocalDateTime timePublished;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate deadline;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionnaire")
     @JsonIgnoreProperties("questionnaire")

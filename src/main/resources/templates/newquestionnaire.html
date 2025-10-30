@@ -11,10 +11,8 @@
     <form th:object="${q}" th:action="@{/savequestionnaire}" method="post">
         <label for="title">Kyselyn nimi</label>
         <input id="title" type="text" th:field="*{title}">
-        <label for="published">Alkamisajankohta</label>
-        <input id="published" type="datetime-local" th:field="*{timePublished}">
         <label for="deadline">Sulkeutumisajankohta</label>
-        <input id="deadline" type="datetime-local" th:field="*{deadline}">
+        <input id="deadline" type="date" th:field="*{deadline}">
         <input type="submit" value="Lisää kysely">
     </form>
 </body>
