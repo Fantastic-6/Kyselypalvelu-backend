@@ -10,15 +10,18 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import hh.kyselypalvelu.backend.domain.QuestionRepository;
 import hh.kyselypalvelu.backend.domain.Questionnaire;
 import hh.kyselypalvelu.backend.domain.QuestionnaireRepository;
 
 @Controller
 public class QuestionnaireController {
     private final QuestionnaireRepository repository;
+    private final QuestionRepository qRepository;
 
-    public QuestionnaireController(QuestionnaireRepository repository) {
+    public QuestionnaireController(QuestionnaireRepository repository, QuestionRepository qRepository) {
         this.repository = repository;
+        this.qRepository = qRepository;
     }
 
 
@@ -52,6 +55,7 @@ public class QuestionnaireController {
     @GetMapping("/editquestionnaire/{questionnaireId}")
     public String getMethodName(@PathVariable() Long questionnaireId, Model model) {
         model.addAttribute("q", repository.findById(questionnaireId));
+        model.addAttribute("questions", qRepository.findByQuestionnaire(repository.findById(questionnaireId)));
         return "editquestionnaire";
     }
     
