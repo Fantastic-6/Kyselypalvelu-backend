@@ -2,6 +2,7 @@ package hh.kyselypalvelu.backend.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,7 +23,10 @@ public class Questionnaire {
 
     private Long questionnaireId;
     private String title;
-    private LocalDateTime timePublished;
+    @DateTimeFormat(pattern = "hh:mm")
+    private LocalTime timePublished;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private LocalDate datePublished;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate deadline;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionnaire")
@@ -34,9 +38,10 @@ public class Questionnaire {
     public Questionnaire() {
     }
 
-    public Questionnaire(String title, LocalDateTime publishTime, LocalDate deadline, List<Question> questions) {
+    public Questionnaire(String title, LocalTime publishTime, LocalDate publishDate, LocalDate deadline, List<Question> questions) {
         this.title = title;
         this.timePublished = publishTime;
+        this.datePublished = publishDate;
         this.deadline = deadline;
         this.questions = questions;
     }
@@ -59,12 +64,20 @@ public class Questionnaire {
         this.title = title;
     }
 
-    public LocalDateTime getTimePublished() {
+    public LocalTime getTimePublished() {
         return timePublished;
     }
 
-    public void setTimePublished(LocalDateTime publishTime) {
-        this.timePublished = publishTime;
+    public void setTimePublished(LocalTime timePublished) {
+        this.timePublished = timePublished;
+    }
+
+    public LocalDate getDatePublished() {
+        return datePublished;
+    }
+
+    public void setDatePublished(LocalDate datePublished) {
+        this.datePublished = datePublished;
     }
 
     public LocalDate getDeadline() {
