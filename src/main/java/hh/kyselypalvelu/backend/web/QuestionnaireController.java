@@ -1,5 +1,8 @@
 package hh.kyselypalvelu.backend.web;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +30,10 @@ public class QuestionnaireController {
 
     @GetMapping("/newquestionnaire")
     public String getNewQuestionnaire(Model model) {
-        model.addAttribute("q", new Questionnaire());
+        Questionnaire que = new Questionnaire();
+        que.setTimePublished(LocalTime.now());
+        que.setDatePublished(LocalDate.now());
+        model.addAttribute("q", que);
         return "newquestionnaire";
     }
 
