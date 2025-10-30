@@ -20,7 +20,7 @@ public class QuestionController {
     @RequestMapping("/savequestion")
     public String saveQuestion(Question question) {
         questionRepository.save(question);
-        return "redirect:/editquestionnaire/{id}";
+        return "redirect:/editquestionnaire/{questionnaireId}";
     }
 
     @RequestMapping(value = "/addquestion")
@@ -29,14 +29,14 @@ public class QuestionController {
         return "addquestion";
     }
 
-    @RequestMapping(value = "/deletequestion/{id}")
-    public String deleteQuestion(@PathVariable("id") Long questionId) {
+    @RequestMapping(value = "/deletequestion/{questionId}")
+    public String deleteQuestion(@PathVariable("questionId") Long questionId) {
         questionRepository.deleteById(questionId);
-        return "redirect:/editquestionnaire/{id}";
+        return "redirect:/editquestionnaire/{questionnaireId}";
     }
 
-    @RequestMapping(value = "/editquestion/{id}")
-    public String editQuestion(@PathVariable("id") Long questionId, Model model) {
+    @RequestMapping(value = "/editquestion/{questionId}")
+    public String editQuestion(@PathVariable("questionId") Long questionId, Model model) {
         model.addAttribute("question", questionRepository.findById(questionId));
         return "editquestion";
     }
