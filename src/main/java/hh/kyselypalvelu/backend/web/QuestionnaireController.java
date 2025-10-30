@@ -44,14 +44,14 @@ public class QuestionnaireController {
     }
 
     @GetMapping("/deletequestionnaire/{questionnaireId}")
-    public String getMethodName(@PathVariable("questionnaireId") Long id) {
-        repository.deleteById(id);
+    public String getMethodName(@PathVariable() Long questionnaireId) {
+        repository.deleteById(questionnaireId);
         return "redirect:/questionnaires";
     }
     
     @GetMapping("/editquestionnaire/{questionnaireId}")
-    public String getMethodName(@PathVariable("questionnaireId") Long id, Model model) {
-        model.addAttribute("q", repository.findById(id));
+    public String getMethodName(@PathVariable() Long questionnaireId, Model model) {
+        model.addAttribute("q", repository.findById(questionnaireId));
         return "editquestionnaire";
     }
     
