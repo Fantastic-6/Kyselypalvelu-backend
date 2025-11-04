@@ -34,8 +34,8 @@ public class SurveyController {
     @GetMapping("/addsurvey")
     public String getAddSurvey(Model model) {
         Survey que = new Survey();
-        que.setTimePublished(LocalTime.now());
-        que.setDatePublished(LocalDate.now());
+        que.setOpeningTime(LocalTime.now());
+        que.setOpeningDate(LocalDate.now());
         model.addAttribute("q", que);
         return "addsurvey";
     }

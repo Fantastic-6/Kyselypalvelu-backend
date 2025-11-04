@@ -12,6 +12,7 @@
         <tr>
             <th>Otsikko</th>
             <th>Tekijä</th>
+            <th>Kuvaus</th>
             <th>Julkaisuajankohta</th>
             <th>Viimeinen vastausajankohta</th>
             <th>Vastausten määrä</th>
@@ -21,7 +22,8 @@
         <tr th:each = "q : ${qs}"> <!--q = survey-->
             <td th:text="${q.title}"></td>
             <td>(tekijä)</td>
-            <td th:text="${q.timePublished}"></td>
+            <td th:text="${q.description}"></td>
+            <td th:text="${q.openingTime}"></td>
             <td th:text="${q.deadline}"></td>
             <td>(vastauksia)</td>
             <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--muokkaa-->
