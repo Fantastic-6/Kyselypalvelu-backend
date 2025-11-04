@@ -23,10 +23,11 @@ public class Survey {
 
     private Long surveyId;
     private String title;
+    private String description;
     @DateTimeFormat(pattern = "hh:mm")
-    private LocalTime timePublished;
+    private LocalTime openingTime;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private LocalDate datePublished;
+    private LocalDate openingDate;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate deadline;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
@@ -38,10 +39,11 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(String title, LocalTime publishTime, LocalDate publishDate, LocalDate deadline, List<Question> questions) {
+    public Survey(String title, LocalTime openingTime, LocalDate openingDate, LocalDate deadline, List<Question> questions) {
         this.title = title;
-        this.timePublished = publishTime;
-        this.datePublished = publishDate;
+        this.description = description;
+        this.openingTime = openingTime;
+        this.openingDate = openingDate;
         this.deadline = deadline;
         this.questions = questions;
     }
@@ -63,21 +65,29 @@ public class Survey {
     public void setTitle(String title) {
         this.title = title;
     }
-
-    public LocalTime getTimePublished() {
-        return timePublished;
+    
+    public String getDescription() {
+        return description;
     }
 
-    public void setTimePublished(LocalTime timePublished) {
-        this.timePublished = timePublished;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public LocalDate getDatePublished() {
-        return datePublished;
+    public LocalTime getOpeningTime() {
+        return openingTime;
     }
 
-    public void setDatePublished(LocalDate datePublished) {
-        this.datePublished = datePublished;
+    public void setOpeningTime(LocalTime timePublished) {
+        this.openingTime = timePublished;
+    }
+
+    public LocalDate getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(LocalDate datePublished) {
+        this.openingDate = datePublished;
     }
 
     public LocalDate getDeadline() {
@@ -95,12 +105,11 @@ public class Survey {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-
+    
     // To string
     @Override
     public String toString() {
-        return "Survey [id=" + surveyId + ", title=" + title + ", publishTime=" + timePublished + ", deadline="
-                + deadline + "]";
+        return "Survey [surveyId=" + surveyId + ", title=" + title + ", description=" + description + ", openingTime="
+                + openingTime + ", openingDate=" + openingDate + ", deadline=" + deadline + "]";
     }
-
 }
