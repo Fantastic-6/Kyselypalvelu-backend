@@ -16,16 +16,21 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
      private Long questionId;
+
      @ManyToOne
      @JsonIgnoreProperties ("questions")
      @JoinColumn(name="surveyId")
 
      private Survey survey;
+
      private String questionText;
+
+     //checkbox, radio, text, scale 1-5
      private String questionType;
+
      private LocalDateTime timeAdded;
+
      private Boolean isRequired;
     //  private int priority;
 
