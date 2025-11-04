@@ -24,7 +24,9 @@
             <td>(tekijä)</td>
             <td th:text="${q.description}"></td>
             <td th:text="${q.openingTime}"></td>
-            <td th:text="${q.deadline}"></td>
+            <td th:text="${q.openingDate}"></td>
+            <td th:text="${q.deadlineTime}"></td>
+            <td th:text="${q.deadlineDate}"></td>
             <td>(vastauksia)</td>
             <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--edit-->
             <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-danger">Poista</a></td> <!--delete-->
