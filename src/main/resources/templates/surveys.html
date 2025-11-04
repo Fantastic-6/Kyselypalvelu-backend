@@ -23,8 +23,10 @@
             <td th:text="${q.title}"></td>
             <td>(tekijä)</td>
             <td th:text="${q.description}"></td>
-            <td th:text="${q.openingTime}"></td>
-            <td th:text="${q.openingDate}"></td>
+            <td>
+            <div th:text="${q.openingDate}"></div>
+            <div th:text="${#temporals.format(q.openingTime, 'HH:mm')}"></div>
+            </td>
             <td th:text="${q.deadlineTime}"></td>
             <td th:text="${q.deadlineDate}"></td>
             <td>(vastauksia)</td>
