@@ -37,8 +37,8 @@ public class BackEndApplication {
                 Log.info("save survey 2");
                 Survey survey2 = surveyRepo.save(new Survey("Survey 2", LocalTime.now(), LocalDate.now(), LocalDate.of(2026, 07,12), null));
                 Log.info("save questions for survey 2");
-                Question s2q1 = questionRepo.save(new Question(survey1, "Q 1: Is this a question?", "radio", LocalDateTime.now(), true));
-                Question s2q2 = questionRepo.save(new Question(survey1, "Q 2: What is love?", "checkbox", LocalDateTime.now(), true));
+                Question s2q1 = questionRepo.save(new Question(survey2, "Q 1: Is this a question?", "radio", LocalDateTime.now(), true));
+                Question s2q2 = questionRepo.save(new Question(survey2, "Q 2: What is love?", "checkbox", LocalDateTime.now(), true));
             };
         }
 }
