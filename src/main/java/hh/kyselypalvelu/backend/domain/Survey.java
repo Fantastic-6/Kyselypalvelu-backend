@@ -46,8 +46,9 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(String title, LocalTime openingTime, LocalDate openingDate, LocalDate deadlineDate, LocalTime deadlineTime) {
+    public Survey(String title, String description, LocalTime openingTime, LocalDate openingDate, LocalDate deadlineDate, LocalTime deadlineTime) {
         this.title = title;
+        this.description = description;
         this.openingTime = openingTime;
         this.openingDate = openingDate;
         this.deadlineDate = deadlineDate;
