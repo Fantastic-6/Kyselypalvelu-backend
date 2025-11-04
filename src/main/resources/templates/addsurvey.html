@@ -11,6 +11,10 @@
     <form th:object="${q}" th:action="@{/savesurvey}" method="post">
         <label for="title">Kyselyn nimi</label>
         <input id="title" type="text" th:field="*{title}">
+        <label for="description">Kyselyn kuvaus</label>
+        <input id="description" type="text" th:field="*{description}">
+        <label for="openingTime">Avausajankohta</label>
+        <input id="openingTime" type="date" th:field="*{openingTime}">
         <label for="deadline">Sulkeutumisajankohta</label>
         <input id="deadline" type="date" th:field="*{deadline}">
         <input type="submit" value="Lisää kysely">
