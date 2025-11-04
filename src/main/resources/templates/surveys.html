@@ -23,12 +23,15 @@
             <td th:text="${q.title}"></td>
             <td>(tekijä)</td>
             <td th:text="${q.description}"></td>
+            <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
             <td>
             <div th:text="${q.openingDate}"></div>
             <div th:text="${#temporals.format(q.openingTime, 'HH:mm')}"></div>
             </td>
-            <td th:text="${q.deadlineTime}"></td>
-            <td th:text="${q.deadlineDate}"></td>
+            <td>
+            <div th:text="${#temporals.format(q.deadlineDate, 'dd.MM.yyyy')}"></div>
+            <div th:text="${#temporals.format(q.deadlineTime, 'HH:mm')}"></div>
+            </td>
             <td>(vastauksia)</td>
             <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--edit-->
             <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-danger">Poista</a></td> <!--delete-->
