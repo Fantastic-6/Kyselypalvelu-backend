@@ -25,7 +25,7 @@
             <td th:text="${q.description}"></td>
             <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
             <td>
-            <div th:text="${q.openingDate}"></div>
+            <div th:text="${#temporals.format(q.openingDate, 'dd.MM.yyyy')}"></div>
             <div th:text="${#temporals.format(q.openingTime, 'HH:mm')}"></div>
             </td>
             <td>
