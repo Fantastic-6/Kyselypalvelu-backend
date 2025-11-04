@@ -20,7 +20,7 @@ public class QuestionController {
     @RequestMapping("/savequestion")
     public String saveQuestion(Question question) {
         questionRepository.save(question);
-        return "redirect:/editquestionnaire/{id}";
+        return "redirect:/editsurvey/{id}";
     }
 
     @RequestMapping(value = "/addquestion")
@@ -32,7 +32,7 @@ public class QuestionController {
     @RequestMapping(value = "/deletequestion/{id}")
     public String deleteQuestion(@PathVariable("id") Long questionId) {
         questionRepository.deleteById(questionId);
-        return "redirect:/editquestionnaire/{id}";
+        return "redirect:/editsurvey/{id}";
     }
 
     @RequestMapping(value = "/editquestion/{id}")

@@ -8,7 +8,7 @@
     <title>Lisää kysely</title>
 </head>
 <body>
-    <form th:object="${q}" th:action="@{/savequestionnaire}" method="post">
+    <form th:object="${q}" th:action="@{/savesurvey}" method="post">
         <label for="title">Kyselyn nimi</label>
         <input id="title" type="text" th:field="*{title}">
         <label for="deadline">Sulkeutumisajankohta</label>
