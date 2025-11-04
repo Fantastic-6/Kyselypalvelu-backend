@@ -1,7 +1,6 @@
 package hh.kyselypalvelu.backend.domain;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -20,16 +19,24 @@ import jakarta.persistence.OneToMany;
 public class Survey {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long surveyId;
+
     private String title;
+
     private String description;
+
     @DateTimeFormat(pattern = "hh:mm")
     private LocalTime openingTime;
+
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate openingDate;
+
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private LocalDate deadline;
+    private LocalDate deadlineDate;
+
+    @DateTimeFormat(pattern = "hh:mm")
+    private LocalTime deadlineTime;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
     @JsonIgnoreProperties("survey")
     private List<Question> questions;
@@ -39,23 +46,23 @@ public class Survey {
     public Survey() {
     }
 
-    public Survey(String title, LocalTime openingTime, LocalDate openingDate, LocalDate deadline, List<Question> questions) {
+    public Survey(String title, LocalTime openingTime, LocalDate openingDate, LocalDate deadlineDate, LocalTime deadlineTime) {
         this.title = title;
-        this.description = description;
         this.openingTime = openingTime;
         this.openingDate = openingDate;
-        this.deadline = deadline;
-        this.questions = questions;
+        this.deadlineDate = deadlineDate;
+        this.deadlineTime = deadlineTime;
     }
 
     // Getters and setters
+
 
     public Long getSurveyId() {
         return surveyId;
     }
 
-    public void setSurveyId(Long id) {
-        this.surveyId = id;
+    public void setSurveyId(Long surveyId) {
+        this.surveyId = surveyId;
     }
 
     public String getTitle() {
@@ -65,7 +72,7 @@ public class Survey {
     public void setTitle(String title) {
         this.title = title;
     }
-    
+
     public String getDescription() {
         return description;
     }
@@ -78,24 +85,32 @@ public class Survey {
         return openingTime;
     }
 
-    public void setOpeningTime(LocalTime timePublished) {
-        this.openingTime = timePublished;
+    public void setOpeningTime(LocalTime openingTime) {
+        this.openingTime = openingTime;
     }
 
     public LocalDate getOpeningDate() {
         return openingDate;
     }
 
-    public void setOpeningDate(LocalDate datePublished) {
-        this.openingDate = datePublished;
+    public void setOpeningDate(LocalDate openingDate) {
+        this.openingDate = openingDate;
     }
 
-    public LocalDate getDeadline() {
-        return deadline;
+    public LocalDate getDeadlineDate() {
+        return deadlineDate;
     }
 
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
+    public void setDeadlineDate(LocalDate deadlineDate) {
+        this.deadlineDate = deadlineDate;
+    }
+
+    public LocalTime getDeadlineTime() {
+        return deadlineTime;
+    }
+
+    public void setDeadlineTime(LocalTime deadlineTime) {
+        this.deadlineTime = deadlineTime;
     }
 
     public List<Question> getQuestions() {
@@ -105,11 +120,15 @@ public class Survey {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-    
+
     // To string
+
     @Override
     public String toString() {
-        return "Survey [surveyId=" + surveyId + ", title=" + title + ", description=" + description + ", openingTime="
-                + openingTime + ", openingDate=" + openingDate + ", deadline=" + deadline + "]";
+        return "Survey [title=" + title + ", description=" + description + ", openingTime=" + openingTime
+                + ", openingDate=" + openingDate + ", deadlineDate=" + deadlineDate + ", deadlineTime=" + deadlineTime
+                + "]";
     }
+
+    
 }
