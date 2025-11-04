@@ -17,11 +17,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Questionnaire {
+public class Survey {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Long questionnaireId;
+    private Long surveyId;
     private String title;
     @DateTimeFormat(pattern = "hh:mm")
     private LocalTime timePublished;
@@ -29,16 +29,16 @@ public class Questionnaire {
     private LocalDate datePublished;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate deadline;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionnaire")
-    @JsonIgnoreProperties("questionnaire")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "survey")
+    @JsonIgnoreProperties("survey")
     private List<Question> questions;
 
     // Constructors
 
-    public Questionnaire() {
+    public Survey() {
     }
 
-    public Questionnaire(String title, LocalTime publishTime, LocalDate publishDate, LocalDate deadline, List<Question> questions) {
+    public Survey(String title, LocalTime publishTime, LocalDate publishDate, LocalDate deadline, List<Question> questions) {
         this.title = title;
         this.timePublished = publishTime;
         this.datePublished = publishDate;
@@ -48,12 +48,12 @@ public class Questionnaire {
 
     // Getters and setters
 
-    public Long getQuestionnaireId() {
-        return questionnaireId;
+    public Long getSurveyId() {
+        return surveyId;
     }
 
-    public void setQuestionnaireId(Long id) {
-        this.questionnaireId = id;
+    public void setSurveyId(Long id) {
+        this.surveyId = id;
     }
 
     public String getTitle() {
@@ -99,7 +99,7 @@ public class Questionnaire {
     // To string
     @Override
     public String toString() {
-        return "Questionnaire [id=" + questionnaireId + ", title=" + title + ", publishTime=" + timePublished + ", deadline="
+        return "Survey [id=" + surveyId + ", title=" + title + ", publishTime=" + timePublished + ", deadline="
                 + deadline + "]";
     }
 

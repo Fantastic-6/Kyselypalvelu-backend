@@ -6,5 +6,5 @@ import java.util.Optional;
 
 
 public interface QuestionRepository extends CrudRepository<Question,Long> {
-    List<Question> findByQuestionnaire(Optional<Questionnaire> questionnaire);
+    List<Question> findBySurvey(Optional<Survey> survey);
 }

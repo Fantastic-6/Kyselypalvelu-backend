@@ -18,16 +18,16 @@
             <th></th> <!--muokkaa nappi-->
             <th></th> <!--poista nappi-->
         </tr>
-        <tr th:each = "q : ${qs}"> <!--q = questionnaire-->
+        <tr th:each = "q : ${qs}"> <!--q = survey-->
             <td th:text="${q.title}"></td>
             <td>(tekijä)</td>
             <td th:text="${q.timePublished}"></td>
             <td th:text="${q.deadline}"></td>
             <td>(vastauksia)</td>
-            <td><a th:href="@{/editquestionnaire/{questionnaireId}(questionnaireId=${q.questionnaireId})}" class="btn btn-primary">Muokkaa</a></td> <!--muokkaa-->
-            <td><a th:href="@{/deletequestionnaire/{questionnaireId}(questionnaireId=${q.questionnaireId})}" class="btn btn-danger">Poista</a></td> <!--poista-->
+            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--muokkaa-->
+            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-danger">Poista</a></td> <!--poista-->
         </tr>
     </table>
-    <a href="/newquestionnaire" class="btn btn-success">Lisää kysely</a>
+    <a href="/addsurvey" class="btn btn-success">Lisää kysely</a>
 </body>
 </html>
