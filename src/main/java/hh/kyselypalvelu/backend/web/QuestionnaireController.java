@@ -34,8 +34,8 @@ public class QuestionnaireController {
     @GetMapping("/newquestionnaire")
     public String getNewQuestionnaire(Model model) {
         Questionnaire que = new Questionnaire();
-        que.setTimePublished(LocalTime.now());
-        que.setDatePublished(LocalDate.now());
+        que.setOpeningTime(LocalTime.now());
+        que.setOpeningDate(LocalDate.now());
         model.addAttribute("q", que);
         return "newquestionnaire";
     }

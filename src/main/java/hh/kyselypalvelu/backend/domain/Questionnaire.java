@@ -23,10 +23,11 @@ public class Questionnaire {
 
     private Long questionnaireId;
     private String title;
+    private String description;
     @DateTimeFormat(pattern = "hh:mm")
-    private LocalTime timePublished;
+    private LocalTime openingTime;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private LocalDate datePublished;
+    private LocalDate openingDate;
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     private LocalDate deadline;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "questionnaire")
@@ -38,10 +39,11 @@ public class Questionnaire {
     public Questionnaire() {
     }
 
-    public Questionnaire(String title, LocalTime publishTime, LocalDate publishDate, LocalDate deadline, List<Question> questions) {
+    public Questionnaire(String title, String description, LocalTime openingTime, LocalDate openingDate, LocalDate deadline, List<Question> questions) {
         this.title = title;
-        this.timePublished = publishTime;
-        this.datePublished = publishDate;
+        this.description = description;
+        this.openingTime = openingTime;
+        this.openingDate = openingDate;
         this.deadline = deadline;
         this.questions = questions;
     }
@@ -59,25 +61,33 @@ public class Questionnaire {
     public String getTitle() {
         return title;
     }
-
+    
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public LocalTime getTimePublished() {
-        return timePublished;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTimePublished(LocalTime timePublished) {
-        this.timePublished = timePublished;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public LocalTime getOpeningTime() {
+        return openingTime;
     }
 
-    public LocalDate getDatePublished() {
-        return datePublished;
+    public void setOpeningTime(LocalTime timePublished) {
+        this.openingTime = timePublished;
     }
 
-    public void setDatePublished(LocalDate datePublished) {
-        this.datePublished = datePublished;
+    public LocalDate getOpeningDate() {
+        return openingDate;
+    }
+
+    public void setOpeningDate(LocalDate datePublished) {
+        this.openingDate = datePublished;
     }
 
     public LocalDate getDeadline() {
@@ -99,8 +109,7 @@ public class Questionnaire {
     // To string
     @Override
     public String toString() {
-        return "Questionnaire [id=" + questionnaireId + ", title=" + title + ", publishTime=" + timePublished + ", deadline="
-                + deadline + "]";
+        return "Questionnaire [questionnaireId=" + questionnaireId + ", title=" + title + ", description=" + description
+                + ", openingTime=" + openingTime + ", openingDate=" + openingDate + ", deadline=" + deadline + "]";
     }
-
 }
