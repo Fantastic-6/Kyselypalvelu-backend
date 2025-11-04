@@ -23,6 +23,17 @@ public class BackEndApplication {
     public static void main(String[] args) {
         SpringApplication.run(BackEndApplication.class, args);
     }
+    
+        @Bean
+        public CommandLineRunner saveData(QuestionnaireRepository questionnaireRepo, QuestionRepository questionRepo) {
+            return(args) -> {
+                Log.info("save some questionnaries");
+
+                questionRepo.save(new Question(null, null, null, null, null));
+                questionnaireRepo.save(new Questionnaire("test1", LocalTime.now(), LocalDate.now(), LocalDate.of(2025, 11,15), null);
+            }
+        }
+    
 
      @Bean
         public CommandLineRunner seedData(SurveyRepository surveyRepo, QuestionRepository questionRepo) {

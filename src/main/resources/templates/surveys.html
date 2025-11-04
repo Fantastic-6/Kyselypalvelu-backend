@@ -16,8 +16,8 @@
             <th>Julkaisuajankohta</th>
             <th>Viimeinen vastausajankohta</th>
             <th>Vastausten määrä</th>
-            <th></th> <!--muokkaa nappi-->
-            <th></th> <!--poista nappi-->
+            <th></th> <!--edit-button-->
+            <th></th> <!--delete-button-->
         </tr>
         <tr th:each = "q : ${qs}"> <!--q = survey-->
             <td th:text="${q.title}"></td>
@@ -26,8 +26,8 @@
             <td th:text="${q.openingTime}"></td>
             <td th:text="${q.deadline}"></td>
             <td>(vastauksia)</td>
-            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--muokkaa-->
-            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-danger">Poista</a></td> <!--poista-->
+            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--edit-->
+            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-danger">Poista</a></td> <!--delete-->
         </tr>
     </table>
     <a href="/addsurvey" class="btn btn-success">Lisää kysely</a>
