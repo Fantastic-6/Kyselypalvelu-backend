@@ -14,66 +14,64 @@ public class Option {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long optionId;
+    private Long optionId;
 
-     @ManyToOne
-     @JsonIgnoreProperties ("options")
-     @JoinColumn(name="questionId")
-     private Question question;
+    @ManyToOne
+    @JsonIgnoreProperties("options")
+    @JoinColumn(name = "questionId")
+    private Question question;
 
-     private String title;
+    private String title;
 
-     private LocalDateTime timeAdded;
+    private LocalDateTime timeAdded;
 
-     // Constructors
-     public Option(Question question, String title, LocalDateTime timeAdded) {
+    // Constructors
+    public Option(Question question, String title, LocalDateTime timeAdded) {
         this.question = question;
         this.title = title;
         this.timeAdded = timeAdded;
-     }
+    }
 
-        public Option() {
-        }
+    public Option() {
+    }
 
-        //Getters and setters
-        public Long getOptionId() {
-            return optionId;
-        }
+    // Getters and setters
+    public Long getOptionId() {
+        return optionId;
+    }
 
-        public void setOptionId(Long optionId) {
-            this.optionId = optionId;
-        }
+    public void setOptionId(Long optionId) {
+        this.optionId = optionId;
+    }
 
-        public Question getQuestion() {
-            return question;
-        }
+    public Question getQuestion() {
+        return question;
+    }
 
-        public void setQuestion(Question question) {
-            this.question = question;
-        }
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
 
-        public String getTitle() {
-            return title;
-        }
+    public String getTitle() {
+        return title;
+    }
 
-        public void setTitle(String title) {
-            this.title = title;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public LocalDateTime getTimeAdded() {
-            return timeAdded;
-        }
+    public LocalDateTime getTimeAdded() {
+        return timeAdded;
+    }
 
-        public void setTimeAdded(LocalDateTime timeAdded) {
-            this.timeAdded = timeAdded;
-        }
+    public void setTimeAdded(LocalDateTime timeAdded) {
+        this.timeAdded = timeAdded;
+    }
 
-        // toString
-        @Override
-        public String toString() {
-            return "Option [question=" + question + ", title=" + title + ", timeAdded=" + timeAdded + "]";
-        }
+    // toString
+    @Override
+    public String toString() {
+        return "Option [question=" + question + ", title=" + title + ", timeAdded=" + timeAdded + "]";
+    }
 
-        
 }
-
