@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <title>Question List</title>
+
+</head>
+<body>
+    <h1>Kysymykset</h1>
+    <a th:href="@{|/${surveyId}/addquestion|}">Lisää kysymys</a>
+    <table>
+  
+        <tr th:each="question : ${questions}">
+            <td th:text="${question.questionId}"></td>
+            <td th:text="${question.questionText}"></td>
+            <td th:text="${question.questionType}"></td>
+            <!--<td th:text="${question.priority}">1</td>-->
+            <td><a th:href="@{|/${surveyId}/editquestion/${question.questionId}|}" class="btn btn-primary">Muokkaa</a></td>
+            <td><a th:href="@{|/${surveyId}/deletequestion/${question.questionId}|}" class="btn btn-danger">Poista</a></td>
+        </tr>
+
+    </table>
+</body>
+</html>
