@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
     <title>Add Question</title>
 </head>
 <body>
     <div>
 
-        <h1>Add a New Question</h1>
+        <h1>Lisää kysymys</h1>
 
-        <form th:method="post" action="#" th:action="@{savequestion}" method="post">
-            <label for="title">Question Text:</label><br>
-            <input type="text" id="title" name="title" required><br><br>
-            <label for="typeSelection">Question Type:</label><br>
+        <form th:object="${question}" th:method="post" action="#" th:action="@{savequestion}" method="post">
+            <input type="hidden" name="surveyId" th:field="*{survey}">
+            <label for="title">Kysymyksen teksti:</label><br>
+            <input type="text" id="title" name="title" required th:field="*{questionText}"><br><br>
+            <label for="typeSelection">Kysymyksen Tyyppi:</label><br>
             <select id="typeSelection" name="typeSelection">
-                <option value="TEXT">Text</option>
-                <option value="MULTIPLE_CHOICE_CHECKBOX">Multiple Choice Checkbox</option>
-                <option value="RADIO_BUTTON">Radio Button</option>
-                <option value="SCALE_1-5">Scale 1-5</option>
+                <option value="TEXT">Teksti</option>
+                <option value="MULTIPLE_CHOICE_CHECKBOX">Valitse monta</option>
+                <option value="RADIO_BUTTON">Valitse yksi</option>
+                <option value="SCALE_1-5">Skaala (1-5)</option>
             </select><br><br>
+            <label for="priority">Prioriteetti:</label><br>
             <input type="number" id="priority" name="priority" placeholder="Priority" required><br><br>
-            <input type="hidden" id="surveyId" name="surveyId" th:value="${surveyId}">
-            <input type="submit" value="Add Question">
+            <input type="submit" value="Lisää kysymys">
 
         </form>
 

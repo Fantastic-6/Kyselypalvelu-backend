@@ -2,41 +2,54 @@ package hh.kyselypalvelu.backend.web;
 
 import hh.kyselypalvelu.backend.domain.QuestionRepository;
 import hh.kyselypalvelu.backend.domain.Question;
+import hh.kyselypalvelu.backend.domain.Survey;
+import hh.kyselypalvelu.backend.domain.SurveyRepository;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class QuestionController {
     private final QuestionRepository questionRepository;
+    private final SurveyRepository surveyRepository;
 
-    public QuestionController(QuestionRepository questionRepository) {
+    public QuestionController(QuestionRepository questionRepository, SurveyRepository surveyRepository) {
         this.questionRepository = questionRepository;
+        this.surveyRepository = surveyRepository;
+    }
+    @GetMapping("/{surveyId}/questions")
+    public String questions(@PathVariable("surveyId") Long surveyId, Model model) {
+        model.addAttribute("q", surveyRepository.findById(surveyId));
+        model.addAttribute("questions", questionRepository.findBySurvey(surveyRepository.findById(surveyId)));
+        return "questions";
     }
 
-    @RequestMapping("/savequestion")
-    public String saveQuestion(Question question) {
+    @PostMapping("/{surveyId}/savequestion")
+    public String saveQuestion(@PathVariable("surveyId") Long surveyId, Question question) {
         questionRepository.save(question);
-        return "redirect:/editquestionnaire/{questionnaireId}";
+        return "redirect:/{surveyId}/questions";
     }
 
-    @RequestMapping(value = "/addquestion")
-    public String addQuestion(@ModelAttribute Question question) {
-        questionRepository.save(question);
+    @GetMapping("/{surveyId}/addquestion")
+    public String addQuestion(@PathVariable("surveyId") Long surveyId, Model model) {
+        Question question = new Question();
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        question.setSurvey(survey);
+        model.addAttribute("question", question);
         return "addquestion";
     }
 
-    @RequestMapping(value = "/deletequestion/{questionId}")
-    public String deleteQuestion(@PathVariable("questionId") Long questionId) {
+    @GetMapping("/{surveyId}/deletequestion/{questionId}")
+    public String deleteQuestion(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId) {
         questionRepository.deleteById(questionId);
-        return "redirect:/editquestionnaire/{questionnaireId}";
+        return "redirect:/{surveyId}/questions";
     }
 
-    @RequestMapping(value = "/editquestion/{questionId}")
-    public String editQuestion(@PathVariable("questionId") Long questionId, Model model) {
+    @GetMapping("/{surveyId}/editquestion/{questionId}")
+    public String editQuestion(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId, Model model) {
         model.addAttribute("question", questionRepository.findById(questionId));
         return "editquestion";
     }
