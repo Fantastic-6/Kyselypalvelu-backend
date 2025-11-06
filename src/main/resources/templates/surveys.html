@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fi">
+<html xmlns="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <title>Kyselyt</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <th>Otsikko</th>
+            <th>Tekijä</th>
+            <th>Kuvaus</th>
+            <th>Julkaisuajankohta</th>
+            <th>Viimeinen vastausajankohta</th>
+            <th>Vastausten määrä</th>
+            <th></th> <!--edit-button-->
+            <th></th> <!--delete-button-->
+        </tr>
+        <tr th:each = "q : ${qs}"> <!--q = survey-->
+            <td th:text="${q.title}"></td>
+            <td>(tekijä)</td>
+            <td th:text="${q.description}"></td>
+            <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
+            <td>
+            <div th:text="${#temporals.format(q.openingDate, 'dd.MM.yyyy')}"></div>
+            <div th:text="${#temporals.format(q.openingTime, 'HH:mm')}"></div>
+            </td>
+            <td>
+            <div th:text="${#temporals.format(q.deadlineDate, 'dd.MM.yyyy')}"></div>
+            <div th:text="${#temporals.format(q.deadlineTime, 'HH:mm')}"></div>
+            </td>
+            <td>(vastauksia)</td>
+            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--edit-->
+            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-danger">Poista</a></td> <!--delete-->
+        </tr>
+    </table>
+    <a href="/addsurvey" class="btn btn-success">Lisää kysely</a>
+</body>
+</html>

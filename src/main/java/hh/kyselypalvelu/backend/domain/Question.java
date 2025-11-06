@@ -16,16 +16,21 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
      private Long questionId;
+
      @ManyToOne
      @JsonIgnoreProperties ("questions")
-     @JoinColumn(name="questionnaireId")
+     @JoinColumn(name="surveyId")
 
-     private Questionnaire questionnaire;
+     private Survey survey;
+
      private String questionText;
+
+     //checkbox, radio, text, scale 1-5
      private String questionType;
+
      private LocalDateTime timeAdded;
+
      private Boolean isRequired;
     //  private int priority;
 
@@ -34,9 +39,9 @@ public class Question {
     public Question() {
      }
 
-     public Question(Questionnaire questionnaire, String questionText, String questionType, LocalDateTime timeAdded,
+     public Question(Survey survey, String questionText, String questionType, LocalDateTime timeAdded,
             Boolean isRequired) {
-        this.questionnaire = questionnaire;
+        this.survey = survey;
         this.questionText = questionText;
         this.questionType = questionType;
         this.timeAdded = timeAdded;
@@ -53,12 +58,12 @@ public class Question {
          this.questionId = questionId;
      }
 
-     public Questionnaire getQuestionnaire() {
-         return questionnaire;
+     public Survey getSurvey() {
+         return survey;
      }
 
-     public void setQuestionnaire(Questionnaire questionnaire) {
-         this.questionnaire = questionnaire;
+     public void setSurvey(Survey survey) {
+         this.survey = survey;
      }
 
      public String getQuestionText() {
@@ -97,7 +102,7 @@ public class Question {
 
      @Override
      public String toString() {
-        return "Question [questionId=" + questionId + ", questionnaire=" + questionnaire + ", questionText="
+        return "Question [questionId=" + questionId + ", survey=" + survey + ", questionText="
                 + questionText + ", questionType=" + questionType + ", timeAdded=" + timeAdded + ", isRequired="
                 + isRequired + "]";
      }
