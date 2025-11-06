@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="fi">
-<html xmlns="http://www.thymeleaf.org">
+<html lang="fi" xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,14 +9,24 @@
 <body>
     <form th:object="${q}" th:action="@{/savesurvey}" method="post">
         <label for="title">Kyselyn nimi</label>
-        <input id="title" type="text" th:field="*{title}">
+        <input id="title" type="text" th:field="*{title}" required>
+
         <label for="description">Kyselyn kuvaus</label>
-        <input id="description" type="text" th:field="*{description}">
-        <label for="openingTime">Avausajankohta</label>
-        <input id="openingTime" type="date" th:field="*{openingTime}">
-        <label for="deadline">Sulkeutumisajankohta</label>
-        <input id="deadline" type="date" th:field="*{deadline}">
-        <input type="submit" value="Lisää kysely">
+        <input id="description" type="text" th:field="*{description}" required>
+
+        <label for="openingDate">Avauspäivämäärä</label>
+        <input id="openingDate" type="date" th:field="*{openingDate}" required>
+
+        <label for="openingTime">Avausaika</label>
+        <input id="openingTime" type="time" th:field="*{openingTime}" required>
+
+        <label for="deadlineDate">Sulkeutumispäivämäärä</label>
+        <input id="deadlineDate" type="date" th:field="*{deadlineDate}" required>
+
+        <label for="deadlineTime">Sulkeutumisaika</label>
+        <input id="deadlineTime" type="time" th:field="*{deadlineTime}" required>
+
+        <input type="submit" value="Lisää kysely" class="btn btn-success">
     </form>
 </body>
 </html>
