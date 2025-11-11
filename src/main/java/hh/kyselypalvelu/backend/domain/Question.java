@@ -30,11 +30,14 @@ public class Question {
      private String questionText;
 
      //checkbox, radio, text, scale 1-5
-     private String questionType;
 
      private LocalDateTime timeAdded;
 
      private Boolean isRequired;
+
+     private QuestionType questionType;
+
+     private int orderNumber;
 
      @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
      @JsonIgnoreProperties ("question")
@@ -51,13 +54,14 @@ public class Question {
     public Question() {
      }
 
-     public Question(Survey survey, String questionText, String questionType, LocalDateTime timeAdded,
-            Boolean isRequired) {
+     public Question(Survey survey, String questionText, LocalDateTime timeAdded,
+            Boolean isRequired, QuestionType questionType, int orderNumber) {
         this.survey = survey;
         this.questionText = questionText;
-        this.questionType = questionType;
         this.timeAdded = timeAdded;
         this.isRequired = isRequired;
+        this.questionType = questionType;
+        this.orderNumber = orderNumber;
      }
 
      //Getters and setters
@@ -86,13 +90,6 @@ public class Question {
          this.questionText = questionText;
      }
 
-     public String getQuestionType() {
-         return questionType;
-     }
-
-     public void setQuestionType(String questionType) {
-         this.questionType = questionType;
-     }
 
      public LocalDateTime getTimeAdded() {
          return timeAdded;
@@ -110,13 +107,29 @@ public class Question {
          this.isRequired = isRequired;
      }
 
+     public QuestionType getQuestionType() {
+         return questionType;
+     }
+
+     public void setQuestionType(QuestionType questionType) {
+         this.questionType = questionType;
+     }
+
+     public int getOrderNumber() {
+        return orderNumber;
+     }
+
+     public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+     }
      // To string 
 
      @Override
      public String toString() {
-        return "Question [questionId=" + questionId + ", survey=" + survey + ", questionText="
-                + questionText + ", questionType=" + questionType + ", timeAdded=" + timeAdded + ", isRequired="
-                + isRequired + "]";
+        return "Question [questionId=" + questionId + ", survey=" + survey + ", questionText=" + questionText
+                + ", timeAdded=" + timeAdded + ", isRequired=" + isRequired + ", questionType=" + questionType
+                + ", orderNumber=" + orderNumber + "]";
      }
 
+    
 }
