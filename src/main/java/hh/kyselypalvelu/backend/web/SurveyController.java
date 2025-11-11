@@ -24,7 +24,6 @@ public class SurveyController {
         this.qRepository = qRepository;
     }
 
-
     @GetMapping("/surveys")
     public String getSurveys(Model model) {
         model.addAttribute("qs", repository.findAll());

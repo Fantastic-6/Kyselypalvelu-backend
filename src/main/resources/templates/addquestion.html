@@ -9,18 +9,18 @@
 <body>
     <div>
         <h1>Lisää kysymys</h1>
-        <form th:method="post" action="#" th:action="@{savequestion}" method="post">
+        <form th:method="post" action="#" th:action="@{savequestion}" method="post" th:object="${question}">
             <label for="title">Kysymys:</label><br>
-            <input type="text" id="title" name="title" required><br><br>
+            <input type="text" id="title" name="title" th:field="*{questionText}" required><br><br>
             <label for="typeSelection">Kysymyksen tyyppi:</label><br>
-            <select id="typeSelection" name="typeSelection">
+            <select id="questionType" name="questionType">
                 <option value="TEXT">Teksti</option>
                 <option value="MULTIPLE_CHOICE_CHECKBOX">Monivalinta (valitse 1 tai useampi)</option>
                 <option value="RADIO_BUTTON">Monivalinta (valitse yksi)</option>
                 <option value="SCALE_1-5">Asteikko 1-5</option>
             </select><br><br>
-            <label for="priority">Prioriteetti:</label><br>
-            <input type="number" id="priority" name="priority" placeholder="Priority" required><br><br>
+            <label for="orderNumber">Järjestysnumero:</label><br>
+            <input type="number" id="orderNumber" name="orderNumber" placeholder="Order number" required><br><br>
             <input type="submit" value="Lisää kysymys">
         </form>
     </div>
