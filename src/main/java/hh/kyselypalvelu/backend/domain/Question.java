@@ -35,6 +35,9 @@ public class Question {
 
      private Boolean isRequired;
 
+     @ManyToOne
+     @JsonIgnoreProperties ("questions")
+     @JoinColumn(name="typeId")
      private QuestionType questionType;
 
      private int orderNumber;
