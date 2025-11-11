@@ -16,45 +16,45 @@ import hh.kyselypalvelu.backend.domain.SurveyRepository;
 
 @Controller
 public class SurveyController {
-    private final SurveyRepository repository;
+    private final SurveyRepository sRepository;
     private final QuestionRepository qRepository;
 
-    public SurveyController(SurveyRepository repository, QuestionRepository qRepository) {
-        this.repository = repository;
+    public SurveyController(SurveyRepository sRepository, QuestionRepository qRepository) {
+        this.sRepository = sRepository;
         this.qRepository = qRepository;
     }
 
     @GetMapping("/surveys")
     public String getSurveys(Model model) {
-        model.addAttribute("qs", repository.findAll());
+        model.addAttribute("surveys", sRepository.findAll());
         return "surveys";
     }
 
     @GetMapping("/addsurvey")
     public String getAddSurvey(Model model) {
-        Survey que = new Survey();
-        que.setOpeningTime(LocalTime.now());
-        que.setOpeningDate(LocalDate.now());
-        model.addAttribute("q", que);
+        Survey survey = new Survey();
+        survey.setOpeningTime(LocalTime.now());
+        survey.setOpeningDate(LocalDate.now());
+        model.addAttribute("survey", survey);
         return "addsurvey";
     }
 
     @PostMapping("/savesurvey")
-    public String saveSurvey(@ModelAttribute Survey q) {
-        repository.save(q);
+    public String saveSurvey(@ModelAttribute Survey survey) {
+        sRepository.save(survey);
         return "redirect:/surveys";
     }
 
     @GetMapping("/deletesurvey/{surveyId}")
-    public String getMethodName(@PathVariable() Long surveyId) {
-        repository.deleteById(surveyId);
+    public String getMethodName(@PathVariable("surveyId") Long surveyId) {
+        sRepository.deleteById(surveyId);
         return "redirect:/surveys";
     }
 
     @GetMapping("/editsurvey/{surveyId}")
-    public String getMethodName(@PathVariable() Long surveyId, Model model) {
-        model.addAttribute("survey", repository.findById(surveyId));
-        model.addAttribute("questions", qRepository.findBySurvey(repository.findById(surveyId)));
+    public String getMethodName(@PathVariable("surveyId") Long surveyId, Model model) {
+        model.addAttribute("survey", sRepository.findById(surveyId));
+        model.addAttribute("questions", qRepository.findBySurvey(sRepository.findById(surveyId)));
         return "editsurvey";
     }
     
