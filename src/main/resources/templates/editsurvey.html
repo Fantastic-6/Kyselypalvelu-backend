@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns="http://www.thymeleaf.org"></html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,28 @@
 
 </head>
 <body>
-    <h1>Kysely</h1>
-    <button onclick="location.href='/addquestion'">Muokkkaa kyselyä</button>
+    <h1>Muokkaa Kyselyä</h1>
    <table>
   
-        <tr th:each="question : ${questions}">
-            <td th:text="${question.id}">1</td>
-            <td th:text="${question.title}">Sample Question</td>
-            <td th:text="${question.type}">TEXT</td>
-            <td th:text="${question.priority}">1</td>
-        </tr>
+        <form th:object="${survey}" action="#" th:action="@{/savesurvey}" method="post">
+            <p>Id:<input type="hidden" th:field="${survey.surveyId}"></p>
+            <p>Title: <input type="text" th:field="*{title}"></p>
+            <p>Description: <input type="text" th:field="*{description}"></p>
+            <p>Opening Date: <input type="date" th:field="*{openingDate}"></p>
+            <p>Opening Time: <input type="time" th:field="*{openingTime}"></p>
+            <p>Deadline Date: <input type="date" th:field="*{deadlineDate}"></p>
+            <p>Deadline Time: <input type="time" th:field="*{deadlineTime}"></p>
+            
+            <input type="submit" value="Save">
+        </form>
 
+        <tr th:each="question : ${questions}">
+        <td input type="hidden" th:text="${question.questionId}">1</td>
+        <td th:text="${question.questionText}">Sample Question</td>
+        <td>
+        <a th:href="@{/editquestion/{question.questionId}}">Edit</a>
+        </td>
+    </tr>
     </table>
 </body>
 </html>
