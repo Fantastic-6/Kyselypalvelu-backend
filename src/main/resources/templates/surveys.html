@@ -17,24 +17,26 @@
             <th>Viimeinen vastausajankohta</th>
             <th>Vastausten määrä</th>
             <th></th> <!--edit-button-->
+            <th></th> <!--questions-button-->
             <th></th> <!--delete-button-->
         </tr>
-        <tr th:each = "q : ${qs}"> <!--q = survey-->
-            <td th:text="${q.title}"></td>
+        <tr th:each = "survey : ${surveys}"> <!--q = survey-->
+            <td th:text="${survey.title}"></td>
             <td>(tekijä)</td>
-            <td th:text="${q.description}"></td>
+            <td th:text="${survey.description}"></td>
             <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
             <td>
-            <div th:text="${#temporals.format(q.openingDate, 'dd.MM.yyyy')}"></div>
-            <div th:text="${#temporals.format(q.openingTime, 'HH:mm')}"></div>
+            <div th:text="${#temporals.format(survey.openingDate, 'dd.MM.yyyy')}"></div>
+            <div th:text="${#temporals.format(survey.openingTime, 'HH:mm')}"></div>
             </td>
             <td>
-            <div th:text="${#temporals.format(q.deadlineDate, 'dd.MM.yyyy')}"></div>
-            <div th:text="${#temporals.format(q.deadlineTime, 'HH:mm')}"></div>
+            <div th:text="${#temporals.format(survey.deadlineDate, 'dd.MM.yyyy')}"></div>
+            <div th:text="${#temporals.format(survey.deadlineTime, 'HH:mm')}"></div>
             </td>
             <td>(vastauksia)</td>
-            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-primary">Muokkaa</a></td> <!--edit-->
-            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${q.surveyId})}" class="btn btn-danger">Poista</a></td> <!--delete-->
+            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-primary">Muokkaa</a></td>
+            <td><a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}" class="btn btn-primary">Kysymykset</a></td>
+            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a></td>
         </tr>
     </table>
     <a href="/addsurvey" class="btn btn-success">Lisää kysely</a>
