@@ -47,13 +47,13 @@ public class SurveyController {
     }
 
     @GetMapping("/deletesurvey/{surveyId}")
-    public String getMethodName(@PathVariable() Long surveyId) {
+    public String getMethodName(@PathVariable("surveyId") Long surveyId) {
         sRepository.deleteById(surveyId);
         return "redirect:/surveys";
     }
 
     @GetMapping("/editsurvey/{surveyId}")
-    public String getMethodName(@PathVariable() Long surveyId, Model model) {
+    public String getMethodName(@PathVariable("surveyId") Long surveyId, Model model) {
         model.addAttribute("survey", sRepository.findById(surveyId));
         model.addAttribute("questions", qRepository.findBySurvey(sRepository.findById(surveyId)));
         return "editsurvey";
