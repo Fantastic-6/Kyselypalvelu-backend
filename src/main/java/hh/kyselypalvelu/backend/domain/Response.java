@@ -25,13 +25,13 @@ public class Response {
 
     private LocalDateTime timeSubmitted;
 
-    private String session;
+    private Long session;
 
     // Constructors
     public Response() {
     }
 
-    public Response(Question question, String responseText, LocalDateTime timeSubmitted, String session) {
+    public Response(Question question, String responseText, LocalDateTime timeSubmitted, Long session) {
         this.question = question;
         this.responseText = responseText;
         this.timeSubmitted = timeSubmitted;
@@ -40,7 +40,7 @@ public class Response {
 
     // Constructor without Question
 
-    public Response(String responseText, LocalDateTime timeSubmitted, String session) {
+    public Response(String responseText, LocalDateTime timeSubmitted, Long session) {
         this.responseText = responseText;
         this.timeSubmitted = timeSubmitted;
         this.session = session;
@@ -80,11 +80,11 @@ public class Response {
         this.timeSubmitted = timeSubmitted;
     }
 
-    public String getSession() {
+    public Long getSession() {
         return session;
     }
 
-    public void setSession(String session) {
+    public void setSession(Long session) {
         this.session = session;
     }
 
