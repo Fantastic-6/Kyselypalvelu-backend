@@ -48,12 +48,9 @@ public class QuestionController {
         questionRepository.save(question);
         return "redirect:/{surveyId}/questions";
     }
-
-<<<<<<< HEAD
+    
     // ADD QUESTION
-=======
- 
->>>>>>> c64a0ce3a6f86c33b89cbc037ef3d49394520448
+
     @GetMapping("/{surveyId}/addquestion")
     public String addQuestion(@PathVariable("surveyId") Long surveyId, Model model) {
         Question question = new Question();
