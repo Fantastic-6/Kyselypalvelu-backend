@@ -13,7 +13,7 @@
     <table>
   
         <tr th:each="question : ${questions}">
-            <td th:text="${question.questionId}"></td>
+            <input type="hidden" name="questionId" th:value="${question.questionId}" />
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.questionType}"></td>
             <!--<td th:text="${question.priority}">1</td>-->

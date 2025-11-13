@@ -1,59 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    />
-    <title>Lisää kysymys</title>
-  </head>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lisää kysymys</title>
+</head>
+<body>
+  <h1>Lisää kysymys</h1>
+  <form method="post" action="savequestion">
 
-  <body>
     <div>
-      <h1>Muokkaa kysymystä</h1>
-      <form
-        th:object="${question}"
-        method="post"
-        action="#"
-        th:action="@{savequestion}"
-      >
-        <input type="hidden" th:field="*{survey}" />
-        <label for="title">Kysymys:</label><br />
-        <input
-          type="text"
-          id="title"
-          name="title"
-          th:field="*{questionText}"
-          required
-        /><br /><br />
-        <label for="typeSelection">Kysymyksen tyyppi:</label><br />
-        <select
-          id="typeSelection"
-          name="typeSelection"
-          th:field="*{questionType}"
-        >
-          <option value="TEXT">Teksti</option>
-          <option value="CHECKBOX">Monivalinta (valitse 1 tai useampi)</option>
-          <option value="RADIO_BUTTON">Monivalinta (valitse yksi)</option>
-          <option value="SCALE_1-5">Asteikko 1-5</option></select
-        ><br /><br />
-        <input id="required" name="isRequired" type="radio" value="TRUE" />
-        <label for="required">Pakollinen</label>
-        <input id="notRequired" name="isRequired" type="radio" value="FALSE" />
-        <label for="notRequired">Ei pakollinen</label>
-        <br /><br />
-        <label for="priority">Prioriteetti:</label><br />
-        <input
-          type="number"
-          id="priority"
-          name="priority"
-          placeholder="Priority"
-          required
-        /><br /><br />
-        <input type="submit" value="Tallenna muutokset" />
-      </form>
+      <label for="title">Kysymys:</label>
+      <input type="text" id="title" name="questionText" required>
     </div>
-  </body>
+
+    <div>
+      <label for="typeSelection">Kysymyksen tyyppi:</label>
+      <select id="typeSelection" name="questionType">
+        <option value="TEXT">Teksti</option>
+        <option value="CHECKBOX">Monivalinta (1 tai useampi)</option>
+        <option value="RADIO_BUTTON">Monivalinta (yksi)</option>
+        <option value="SCALE_1-5">Asteikko 1-5</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Pakollisuus:</label>
+      <input type="radio" id="required" name="isRequired" value="TRUE">
+      <label for="required">Pakollinen</label>
+      <input type="radio" id="notRequired" name="isRequired" value="FALSE" checked>
+      <label for="notRequired">Ei pakollinen</label>
+    </div>
+
+    <div>
+      <label for="priority">Prioriteetti:</label>
+      <input type="number" id="priority" name="priority" placeholder="Priority" required>
+    </div>
+
+    <div>
+      <input type="submit" value="Lisää kysymys">
+    </div>
+
+  </form>
+</body>
 </html>
