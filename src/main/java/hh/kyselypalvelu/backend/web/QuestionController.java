@@ -90,29 +90,29 @@ public class QuestionController {
         return "redirect:/{surveyId}/editquestion";
     }
 
-     // SAVE OPTION (in editquestion.html)
-    @PostMapping("/{surveyId}/saveoption")
+     // SAVE OPTION (in addquestion.html)
+    @PostMapping("/{surveyId}/addquestion/saveoption")
     public String saveOptionInAdd(@PathVariable("surveyId") Long surveyId, Option option) {
         optionRepository.save(option);
         return "redirect:/{surveyId}/addquestion";
     }
 
     // SAVE OPTION (in editquestion.html)
-    @PostMapping("/{surveyId}/saveoption")
+    @PostMapping("/{surveyId}/editquestion/saveoption")
     public String saveOptionInEdit(@PathVariable("surveyId") Long surveyId, Option option) {
         optionRepository.save(option);
         return "redirect:/{surveyId}/editquestion";
     }
 
       // DELETE OPTION (in addquestion.html)
-    @GetMapping("/{surveyId}/deleteoption/{optionId}")
+    @GetMapping("/{surveyId}/addquestion/deleteoption/{optionId}")
     public String deleteOptionInAdd(@PathVariable("surveyId") Long surveyId, @PathVariable("optionId") Long optionId) {
         optionRepository.deleteById(optionId);
         return "redirect:/{surveyId}/addquestion";
     }
 
     // DELETE OPTION (in editquestion.html)
-    @GetMapping("/{surveyId}/deleteoption/{optionId}")
+    @GetMapping("/{surveyId}/editquestion/deleteoption/{optionId}")
     public String deleteOptionInEdit(@PathVariable("surveyId") Long surveyId, @PathVariable("optionId") Long optionId) {
         optionRepository.deleteById(optionId);
         return "redirect:/{surveyId}/editquestion";
