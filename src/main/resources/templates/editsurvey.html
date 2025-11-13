@@ -12,16 +12,13 @@
    <table>
   
         <form th:object="${survey}" action="#" th:action="@{/savesurvey}" method="post">
-            <p>Id:<input type="hidden" th:field="${survey.surveyId}"></p>
+            <input type="hidden" th:field="${survey.surveyId}">
             <p>Otsikko: <input type="text" th:field="*{title}"></p>
             <p>Kuvaus: <input type="text" th:field="*{description}"></p>
             <p>Avauspäivämäärä: <input type="date" th:field="*{openingDate}"></p>
             <p>Avausaika: <input type="time" th:field="*{openingTime}"></p>
             <p>Sulkemispäivämäärä: <input type="date" th:field="*{deadlineDate}"></p>
             <p>Sulkemisaika: <input type="time" th:field="*{deadlineTime}"></p>
-
-            <a th:href="@{|/${surveyId}/addquestion|}">Lisää kysymys</a>
-
              <tr th:each="question : ${questions}">
             <td th:text="${question.questionId}"></td>
             <td th:text="${question.questionText}"></td>
@@ -32,6 +29,10 @@
         </tr>
             <input type="submit" value="Tallenna">
         </form>
+
+        <div>
+        <a th:href="@{|/${surveyId}/addquestion|}">Lisää kysymys</a>
+        </div>
 
         </td>
     </tr>
