@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<html xmlns="http://www.thymeleaf.org"></html>
+<html xmlns="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,16 +19,21 @@
             <p>Opening Time: <input type="time" th:field="*{openingTime}"></p>
             <p>Deadline Date: <input type="date" th:field="*{deadlineDate}"></p>
             <p>Deadline Time: <input type="time" th:field="*{deadlineTime}"></p>
+
+            <a th:href="@{|/${surveyId}/addquestion|}">Lisää kysymys</a>
+
+             <tr th:each="question : ${questions}">
+            <td th:text="${question.questionId}"></td>
+            <td th:text="${question.questionText}"></td>
+            <td th:text="${question.questionType}"></td>
+            <!--<td th:text="${question.priority}">1</td>-->
+            <td><a th:href="@{|/${surveyId}/editquestion/${question.questionId}|}" class="btn btn-primary">Muokkaa</a></td>
+            <td><a th:href="@{|/${surveyId}/deletequestion/${question.questionId}|}" class="btn btn-danger">Poista</a></td>
+        </tr>
             <input type="submit" value="Save">
         </form>
 
-        <tr th:each="question : ${questions}">
-        <td input type="hidden" th:text="${question.questionId}">1</td>
-        <td th:text="${question.questionText}">Sample Question</td>
-        <td>
-        <a th:href="@{/editquestion/{question.questionId}}">Edit</a>
         </td>
     </tr>
-    </table>
 </body>
 </html>
