@@ -35,7 +35,6 @@
             </td>
             <td>(vastauksia)</td>
             <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-primary">Muokkaa</a></td>
-            <td><a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}" class="btn btn-primary">Kysymykset</a></td>
             <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a></td>
         </tr>
     </table>
