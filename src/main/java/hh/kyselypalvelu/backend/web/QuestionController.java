@@ -10,6 +10,7 @@ import hh.kyselypalvelu.backend.domain.SurveyRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -41,8 +42,18 @@ public class QuestionController {
         questionRepository.save(question);
         return "redirect:/{surveyId}/questions";
     }
+    
+    @PostMapping("/{surveyId}/editquestion/savequestion")
+    public String saveEditedQuestion(@PathVariable("surveyId") Long surveyId, Question question) {
+        questionRepository.save(question);
+        return "redirect:/{surveyId}/questions";
+    }
 
+<<<<<<< HEAD
     // ADD QUESTION
+=======
+ 
+>>>>>>> c64a0ce3a6f86c33b89cbc037ef3d49394520448
     @GetMapping("/{surveyId}/addquestion")
     public String addQuestion(@PathVariable("surveyId") Long surveyId, Model model) {
         Question question = new Question();

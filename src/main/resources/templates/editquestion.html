@@ -21,6 +21,7 @@
       >
         <input type="hidden" th:field="*{survey}" />
         <label for="title">Kysymys:</label><br />
+        <input type="hidden" th:field="*{questionId}"/>
         <input
           type="text"
           id="title"
@@ -35,21 +36,22 @@
           th:field="*{questionType}"
         >
           <option value="TEXT">Teksti</option>
+          <option value="RADIO">Monivalinta (valitse yksi)</option>
           <option value="CHECKBOX">Monivalinta (valitse 1 tai useampi)</option>
-          <option value="RADIO_BUTTON">Monivalinta (valitse yksi)</option>
-          <option value="SCALE_1-5">Asteikko 1-5</option></select
+          <option value="SCALE">Asteikko 1-5</option></select
         ><br /><br />
         <input id="required" name="isRequired" type="radio" value="TRUE" />
         <label for="required">Pakollinen</label>
-        <input id="notRequired" name="isRequired" type="radio" value="FALSE" />
+        <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked="TRUE"/>
         <label for="notRequired">Ei pakollinen</label>
         <br /><br />
-        <label for="priority">Prioriteetti:</label><br />
+        <label for="orderNumber">Järjestysnumero:</label><br />
         <input
           type="number"
-          id="priority"
-          name="priority"
-          placeholder="Priority"
+          id="orderNumber"
+          name="orderNumber"
+          placeholder="Järjestysnumero"
+          th:field="*{orderNumber}"
           required
         /><br /><br />
         <input type="submit" value="Tallenna muutokset" />
