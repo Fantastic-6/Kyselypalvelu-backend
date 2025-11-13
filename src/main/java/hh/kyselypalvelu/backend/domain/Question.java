@@ -19,45 +19,40 @@ public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-     private Long questionId;
+    private Long questionId;
 
-     @ManyToOne
-     @JsonIgnoreProperties ("questions")
-     @JoinColumn(name="surveyId")
+    @ManyToOne
+    @JsonIgnoreProperties("questions")
+    @JoinColumn(name = "surveyId")
 
-     private Survey survey;
+    private Survey survey;
 
-     private String questionText;
+    private String questionText;
 
-     //checkbox, radio, text, scale 1-5
+    private LocalDateTime timeAdded;
 
-     private LocalDateTime timeAdded;
+    private Boolean isRequired;
 
-     private Boolean isRequired;
+    public enum QuestionType {
+        TEXT, RADIO, CHECKBOX, SCALE
+    };
+    private QuestionType questionType;
 
-     @ManyToOne
-     @JsonIgnoreProperties ("questions")
-     @JoinColumn(name="typeId")
-     private QuestionType questionType;
+    private int orderNumber;
 
-     private int orderNumber;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    @JsonIgnoreProperties("question")
+    private List<Option> options;
 
-     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-     @JsonIgnoreProperties ("question")
-     private List<Option> options;
-
-     @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
-     @JsonIgnoreProperties ("question")
-     private List<Response> responses;
-
-
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "question")
+    @JsonIgnoreProperties("question")
+    private List<Response> responses;
 
     // Constructors
-    
     public Question() {
-     }
+    }
 
-     public Question(Survey survey, String questionText, LocalDateTime timeAdded,
+    public Question(Survey survey, String questionText, LocalDateTime timeAdded,
             Boolean isRequired, QuestionType questionType, int orderNumber) {
         this.survey = survey;
         this.questionText = questionText;
@@ -65,74 +60,71 @@ public class Question {
         this.isRequired = isRequired;
         this.questionType = questionType;
         this.orderNumber = orderNumber;
-     }
+    }
 
-     //Getters and setters
-     
-     public Long getQuestionId() {
-         return questionId;
-     }
+    // Getters and setters
+    public Long getQuestionId() {
+        return questionId;
+    }
 
-     public void setQuestionId(Long questionId) {
-         this.questionId = questionId;
-     }
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
 
-     public Survey getSurvey() {
-         return survey;
-     }
+    public Survey getSurvey() {
+        return survey;
+    }
 
-     public void setSurvey(Survey survey) {
-         this.survey = survey;
-     }
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
 
-     public String getQuestionText() {
-         return questionText;
-     }
+    public String getQuestionText() {
+        return questionText;
+    }
 
-     public void setQuestionText(String questionText) {
-         this.questionText = questionText;
-     }
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
 
+    public LocalDateTime getTimeAdded() {
+        return timeAdded;
+    }
 
-     public LocalDateTime getTimeAdded() {
-         return timeAdded;
-     }
+    public void setTimeAdded(LocalDateTime timeAdded) {
+        this.timeAdded = timeAdded;
+    }
 
-     public void setTimeAdded(LocalDateTime timeAdded) {
-         this.timeAdded = timeAdded;
-     }
+    public Boolean getIsRequired() {
+        return isRequired;
+    }
 
-     public Boolean getIsRequired() {
-         return isRequired;
-     }
+    public void setIsRequired(Boolean isRequired) {
+        this.isRequired = isRequired;
+    }
 
-     public void setIsRequired(Boolean isRequired) {
-         this.isRequired = isRequired;
-     }
+    public QuestionType getQuestionType() {
+        return questionType;
+    }
 
-     public QuestionType getQuestionType() {
-         return questionType;
-     }
+    public void setQuestionType(QuestionType questionType) {
+        this.questionType = questionType;
+    }
 
-     public void setQuestionType(QuestionType questionType) {
-         this.questionType = questionType;
-     }
-
-     public int getOrderNumber() {
+    public int getOrderNumber() {
         return orderNumber;
-     }
+    }
 
-     public void setOrderNumber(int orderNumber) {
+    public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
-     }
-     // To string 
+    }
+    // To string
 
-     @Override
-     public String toString() {
+    @Override
+    public String toString() {
         return "Question [questionId=" + questionId + ", survey=" + survey + ", questionText=" + questionText
                 + ", timeAdded=" + timeAdded + ", isRequired=" + isRequired + ", questionType=" + questionType
                 + ", orderNumber=" + orderNumber + "]";
-     }
+    }
 
-    
 }
