@@ -37,8 +37,8 @@ public class BackEndApplication {
                 Log.info("save survey 1");
                 Survey survey1 = surveyRepo.save(new Survey("Survey 1", "tosi osuva kuvaus :)", LocalTime.now(), LocalDate.now(), LocalDate.of(2025, 11,15), LocalTime.of(23, 59)));
                 Log.info("save questions for survey 1");
-                Question s1q1 = questionRepo.save(new Question(survey1, "Q 1: Is this a question?", LocalDateTime.now(), true, QuestionType.TEXT, 1));
-                Question s1q2 = questionRepo.save(new Question(survey1, "Q 2: What is love? Select one", LocalDateTime.now(), true, QuestionType.RADIO, 2));
+                Question s1q1 = questionRepo.save(new Question(survey1, "Is this a question?", LocalDateTime.now(), true, QuestionType.TEXT, 1));
+                Question s1q2 = questionRepo.save(new Question(survey1, "What is love? Select one", LocalDateTime.now(), true, QuestionType.RADIO, 2));
                 Log.info("save options for survey1 question 2");
                 Option s1q2o1 = optionRepo.save(new Option(s1q2, "Baby don't hurt me", LocalDateTime.now()));
                 Option s1q2o2 = optionRepo.save(new Option(s1q2, "Don't hurt me", LocalDateTime.now()));
@@ -47,7 +47,7 @@ public class BackEndApplication {
                 Log.info("save survey 2");
                 Survey survey2 = surveyRepo.save(new Survey("Survey 2", "vielä osuvampi testikuvaus :D", LocalTime.now(), LocalDate.now(), LocalDate.of(2026, 07,12), LocalTime.of(12, 00)));
                 Log.info("save questions for survey 2");
-                Question s2q1 = questionRepo.save(new Question(survey2, "Q 1: Choose one or more", LocalDateTime.now(), true, QuestionType.CHECKBOX, 3));
+                Question s2q1 = questionRepo.save(new Question(survey2, "Choose one or more", LocalDateTime.now(), true, QuestionType.CHECKBOX, 3));
                 Log.info("save options for survey2 question 1");
                 Option s2q1o1 = optionRepo.save(new Option(s2q1, "Option 1", LocalDateTime.now()));
                 Option s2q1o2 = optionRepo.save(new Option(s2q1, "Option 2", LocalDateTime.now()));
