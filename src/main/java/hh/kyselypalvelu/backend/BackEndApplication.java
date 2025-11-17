@@ -52,7 +52,7 @@ public class BackEndApplication {
                 Option s2q1o1 = optionRepo.save(new Option(s2q1, "Option 1", LocalDateTime.now()));
                 Option s2q1o2 = optionRepo.save(new Option(s2q1, "Option 2", LocalDateTime.now()));
                 Option s2q1o3 = optionRepo.save(new Option(s2q1, "Option 3", LocalDateTime.now()));
-                Question s2q2 = questionRepo.save(new Question(survey2, "Q 2: How's your current mood?", LocalDateTime.now(), true, QuestionType.SCALE, 4));
+                Question s2q2 = questionRepo.save(new Question(survey2, "How's your current mood?", LocalDateTime.now(), true, QuestionType.SCALE, 4));
 
                 Log.info("save responses for survey 1");
                 responseRepo.save(new Response(s1q1, "yep", LocalDateTime.now(), (long) 1));
