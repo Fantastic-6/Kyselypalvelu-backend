@@ -1,54 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    />
-    <title>Lisää kysymys</title>
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lisää kysymys</title>
+</head>
+<body>
+  <h1>Lisää kysymys</h1>
+
+  <form th:object="${question}" method="post" th:action="@{savequestion}">
+
+    <input type="hidden" th:field="*{survey.surveyId}" />
+
     <div>
-      <h1>Lisää kysymys</h1>
-      <form th:object="${question}" method="post" action="#" th:action="@{savequestion}">
-
-        <input type="hidden" th:field="*{survey.surveyId}" />
-
-        <div>
-          <label for="title">Kysymys:</label>
-          <input type="text" id="title" name="title" th:field="*{questionText}" required />
-        </div>
-
-        <div>
-          <label for="typeSelection">Kysymyksen tyyppi:</label>
-          <select id="typeSelection" name="typeSelection" th:field="*{questionType}">
-            <option value="TEXT">Teksti</option>
-            <option value="CHECKBOX">Valitse 1 tai useampi</option>
-            <option value="RADIO">Valitse yksi</option>
-            <option value="SCALE">Asteikko 1-5</option>
-          </select>
-        </div>
-
-        <div>
-          <input id="required" name="isRequired" type="radio" value="TRUE"/>
-          <label for="required">Pakollinen</label>
-          <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked="TRUE" />
-          <label for="notRequired">Ei pakollinen</label>
-        </div>
-
-        <div>
-          <label for="priority">Prioriteetti:</label>
-          <input type="number" id="priority" name="priority" placeholder="Priority" required />
-        </div>
-
-        <div>
-          <input type="submit" value="Lisää kysymys" />
-        </div>
-
-      </form>
+      <label for="title">Kysymys:</label><br>
+      <input type="text" id="title" th:field="*{questionText}" required>
     </div>
-  </body>
+
+    <div>
+      <label for="typeSelection">Kysymyksen tyyppi:</label><br>
+      <select id="typeSelection" th:field="*{questionType}" onchange="toggleOptions()">
+        <option value="TEXT">Teksti</option>
+        <option value="CHECKBOX">Valitse 1 tai useampi</option>
+        <option value="RADIO">Valitse yksi</option>
+        <option value="SCALE">Asteikko 1–5</option>
+      </select>
+    </div>
+
+    <div id="optionsContainer" style="display:none;">
+      <label>Vaihtoehdot:</label><br>
+      <div id="optionFields"></div>
+      <button type="button" onclick="addOptionField()">Lisää vaihtoehto</button>
+    </div>
+
+    <div>
+      <input id="required" name="isRequired" type="radio" value="TRUE">
+      <label for="required">Pakollinen</label>
+
+      <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked>
+      <label for="notRequired">Ei pakollinen</label>
+    </div>
+
+    <div>
+      <label for="priority">Prioriteetti:</label><br>
+      <input type="number" id="priority" name="priority" required>
+    </div>
+
+    <div>
+      <button type="submit">Lisää kysymys</button>
+    </div>
+
+  </form>
+
+  <script>
+    function toggleOptions() {
+      const type = document.getElementById("typeSelection").value;
+      const container = document.getElementById("optionsContainer");
+
+      if (type === "RADIO" || type === "CHECKBOX") {
+        container.style.display = "block";
+
+        // adds a field if none exist
+        if (document.querySelectorAll("#optionFields input").length === 0) {
+          addOptionField();
+        }
+      } else {
+        container.style.display = "none";
+      }
+    }
+
+    function addOptionField() {
+      const fields = document.getElementById("optionFields");
+      const index = fields.querySelectorAll("input").length;
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Vaihtoehto " + (index + 1);
+      input.name = "options[" + index + "].title";
+
+      fields.appendChild(input);
+    }
+  </script>
+</body>
+
 </html>
