@@ -35,7 +35,10 @@ public class BackEndApplication {
         public CommandLineRunner seedData(SurveyRepository surveyRepo, QuestionRepository questionRepo, OptionRepository optionRepo, ResponseRepository responseRepo) {
             return(args) -> {
                 Log.info("save survey 1");
-                Survey survey1 = surveyRepo.save(new Survey("Survey 1", "tosi osuva kuvaus :)", LocalTime.now(), LocalDate.now(), LocalDate.of(2025, 11,15), LocalTime.of(23, 59)));
+                LocalDate d1 = LocalDate.parse("2025-01-01");
+                LocalDate d2 = LocalDate.parse("2025-02-02");
+                LocalDate d3 = LocalDate.parse("2026-02-02");
+                Survey survey1 = surveyRepo.save(new Survey("Survey 1", "tosi osuva kuvaus :)", LocalTime.now(), d1, d2, LocalTime.of(23, 59)));
                 Log.info("save questions for survey 1");
                 Question s1q1 = questionRepo.save(new Question(survey1, "Q 1: Is this a question?", LocalDateTime.now(), true, QuestionType.TEXT, 1));
                 Question s1q2 = questionRepo.save(new Question(survey1, "Q 2: What is love? Select one", LocalDateTime.now(), true, QuestionType.RADIO, 2));
@@ -45,7 +48,7 @@ public class BackEndApplication {
                 Option s1q2o3 = optionRepo.save(new Option(s1q2, "No more", LocalDateTime.now()));
 
                 Log.info("save survey 2");
-                Survey survey2 = surveyRepo.save(new Survey("Survey 2", "vielä osuvampi testikuvaus :D", LocalTime.now(), LocalDate.now(), LocalDate.of(2026, 07,12), LocalTime.of(12, 00)));
+                Survey survey2 = surveyRepo.save(new Survey("Survey 2", "vielä osuvampi testikuvaus :D", LocalTime.now(), d1, d3, LocalTime.of(12, 00)));
                 Log.info("save questions for survey 2");
                 Question s2q1 = questionRepo.save(new Question(survey2, "Q 1: Choose one or more", LocalDateTime.now(), true, QuestionType.CHECKBOX, 3));
                 Log.info("save options for survey2 question 1");
