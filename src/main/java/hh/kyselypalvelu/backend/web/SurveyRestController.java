@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 import hh.kyselypalvelu.backend.domain.Survey;
 import hh.kyselypalvelu.backend.domain.SurveyRepository;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,8 @@ public class SurveyRestController {
 
     @GetMapping("/api/surveys")
     public @ResponseBody List<Survey> surveyListRest() {
-	return (List<Survey>) sRepository.findAll();
+        LocalDate nowDate = LocalDate.now();
+	return (List<Survey>) sRepository.findByOpeningDateBeforeAndDeadlineDateAfter(nowDate, nowDate);
 }
 
     @GetMapping("/api/survey/{surveyId}")
