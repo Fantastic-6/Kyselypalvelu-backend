@@ -20,12 +20,12 @@ public class SurveyRestController {
     }
 
     @GetMapping("/api/surveys")
-    public @ResponseBody List<Survey> studentListRest() {
+    public @ResponseBody List<Survey> surveyListRest() {
 	return (List<Survey>) sRepository.findAll();
 }
 
     @GetMapping("/api/survey/{surveyId}")
-    public @ResponseBody Survey studentRest(@PathVariable("surveyId") Long surveyId) {
+    public @ResponseBody Survey surveyRest(@PathVariable("surveyId") Long surveyId) {
 	return sRepository.findBySurveyId(surveyId);
 }    
 }
