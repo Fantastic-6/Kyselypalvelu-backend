@@ -53,7 +53,7 @@ public class SurveyController {
 
     @GetMapping("/editsurvey/{surveyId}")
     public String getMethodName(@PathVariable("surveyId") Long surveyId, Model model) {
-        model.addAttribute("survey", sRepository.findById(surveyId));
+        model.addAttribute("survey", sRepository.findById(surveyId).orElse(null));
         model.addAttribute("questions", qRepository.findBySurvey(sRepository.findById(surveyId)));
         return "editsurvey";
     }

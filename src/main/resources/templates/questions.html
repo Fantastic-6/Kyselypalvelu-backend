@@ -13,10 +13,10 @@
     <table>
   
         <tr th:each="question : ${questions}">
-            <td th:text="${question.questionId}"></td>
+            <input type="hidden" name="questionId" th:value="${question.questionId}" />
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.questionType}"></td>
-            <!--<td th:text="${question.priority}">1</td>-->
+            <td><input type="hidden" th:value="${question.orderNumber}" /></td>
             <td><a th:href="@{|/${surveyId}/editquestion/${question.questionId}|}" class="btn btn-primary">Muokkaa</a></td>
             <td><a th:href="@{|/${surveyId}/deletequestion/${question.questionId}|}" class="btn btn-danger">Poista</a></td>
         </tr>
