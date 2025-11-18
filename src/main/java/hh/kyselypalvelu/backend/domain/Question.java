@@ -118,6 +118,15 @@ public class Question {
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
     }
+    // Options getter/setter (for Thymeleaf binding)
+    public java.util.List<Option> getOptions() {
+        return options;
+    }
+
+    public void setOptions(java.util.List<Option> options) {
+        this.options = options;
+    }
+
     // To string
 
     @Override

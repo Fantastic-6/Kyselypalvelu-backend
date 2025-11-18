@@ -10,7 +10,6 @@ import hh.kyselypalvelu.backend.domain.SurveyRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,21 +30,64 @@ public class QuestionController {
     // QUESTIONS 
     @GetMapping("/{surveyId}/questions")
     public String questions(@PathVariable("surveyId") Long surveyId, Model model) {
-        model.addAttribute("survey", surveyRepository.findById(surveyId));
-        model.addAttribute("questions", questionRepository.findBySurvey(surveyRepository.findById(surveyId)));
+    Survey survey = surveyRepository.findById(surveyId).orElse(null);
+    model.addAttribute("survey", survey);
+    model.addAttribute("questions", questionRepository.findBySurvey(survey));
         return "questions";
     }
 
     // SAVE QUESTION
     @PostMapping("/{surveyId}/savequestion")
     public String saveQuestion(@PathVariable("surveyId") Long surveyId, Question question) {
-        questionRepository.save(question);
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        question.setSurvey(survey);
+        // save question first to get an id
+        Question saved = questionRepository.save(question);
+        // then persist options referencing the saved question
+        if (question.getOptions() != null) {
+            for (Option o : question.getOptions()) {
+                o.setQuestion(saved);
+                optionRepository.save(o);
+            }
+        }
         return "redirect:/{surveyId}/questions";
     }
     
     @PostMapping("/{surveyId}/editquestion/savequestion")
     public String saveEditedQuestion(@PathVariable("surveyId") Long surveyId, Question question) {
-        questionRepository.save(question);
+        // find managed question
+        if (question.getQuestionId() == null) {
+            // nothing to edit, treat as create
+            return saveQuestion(surveyId, question);
+        }
+        Question managed = questionRepository.findById(question.getQuestionId()).orElse(null);
+        if (managed == null) return "redirect:/{surveyId}/questions";
+        // update fields
+        managed.setQuestionText(question.getQuestionText());
+        managed.setQuestionType(question.getQuestionType());
+        managed.setIsRequired(question.getIsRequired());
+        managed.setOrderNumber(question.getOrderNumber());
+        managed.setSurvey(surveyRepository.findById(surveyId).orElse(null));
+        questionRepository.save(managed);
+        // delete previous options
+        java.util.List<Option> existing = optionRepository.findByQuestionQuestionId(managed.getQuestionId());
+        if (existing != null) {
+            for (Option ex : existing) optionRepository.deleteById(ex.getOptionId());
+        }
+        // save incoming options
+        if (question.getOptions() != null) {
+            for (Option o : question.getOptions()) {
+                // skip empty or null titles (could be leftover empty inputs)
+                if (o == null) continue;
+                String t = o.getTitle();
+                if (t == null) continue;
+                if (t.trim().isEmpty()) continue;
+                // treat incoming as new records (we deleted previous ones), avoid merging deleted ids
+                o.setOptionId(null);
+                o.setQuestion(managed);
+                optionRepository.save(o);
+            }
+        }
         return "redirect:/{surveyId}/questions";
     }
     
@@ -70,7 +112,13 @@ public class QuestionController {
     // EDIT QUESTION
     @GetMapping("/{surveyId}/editquestion/{questionId}")
     public String editQuestion(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId, Model model) {
-        model.addAttribute("question", questionRepository.findById(questionId));
+    Question q = questionRepository.findById(questionId).orElse(null);
+    if (q != null) {
+        // fetch options explicitly so template can render them
+        java.util.List<Option> opts = optionRepository.findByQuestionQuestionId(q.getQuestionId());
+        q.setOptions(opts);
+    }
+    model.addAttribute("question", q);
         return "editquestion";
     }
 

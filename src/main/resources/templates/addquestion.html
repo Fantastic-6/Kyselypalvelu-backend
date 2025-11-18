@@ -9,7 +9,7 @@
 <body>
   <h1>Lisää kysymys</h1>
 
-  <form th:object="${question}" method="post" th:action="@{savequestion}">
+  <form th:object="${question}" method="post" th:action="@{/{surveyId}/savequestion(surveyId=${question.survey.surveyId})}">
 
     <input type="hidden" th:field="*{survey.surveyId}" />
 
@@ -72,14 +72,25 @@
 
     function addOptionField() {
       const fields = document.getElementById("optionFields");
-      const index = fields.querySelectorAll("input").length;
+      // count only visible text inputs (one per option) to produce sequential indices
+      const index = fields.querySelectorAll("input[type=text]").length;
+
+      const row = document.createElement('div');
+      row.className = 'option-row';
+
+      const hid = document.createElement("input");
+      hid.type = "hidden";
+      hid.name = "options[" + index + "].optionId";
+      hid.value = "";
 
       const input = document.createElement("input");
       input.type = "text";
       input.placeholder = "Vaihtoehto " + (index + 1);
       input.name = "options[" + index + "].title";
 
-      fields.appendChild(input);
+      row.appendChild(hid);
+      row.appendChild(input);
+      fields.appendChild(row);
     }
   </script>
 </body>
