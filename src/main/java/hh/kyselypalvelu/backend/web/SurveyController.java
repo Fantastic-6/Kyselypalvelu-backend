@@ -24,7 +24,7 @@ public class SurveyController {
         this.qRepository = qRepository;
     }
 
-    @GetMapping("/surveys")
+    @GetMapping({ "/", "/surveys" })
     public String getSurveys(Model model) {
         model.addAttribute("surveys", sRepository.findAll());
         return "surveys";
@@ -57,5 +57,5 @@ public class SurveyController {
         model.addAttribute("questions", qRepository.findBySurvey(sRepository.findById(surveyId)));
         return "editsurvey";
     }
-    
+
 }
