@@ -1,26 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
-    <title>Question List</title>
-
+    <link rel="stylesheet" href="/style.css" />
+    <title>Kysymyslista</title>
 </head>
+
 <body>
     <h1>Kysymykset</h1>
-    <a th:href="@{|/${surveyId}/addquestion|}">Lisää kysymys</a>
     <table>
-  
+        <tr>
+            <th colspan="4" class="btn-row"><a class="btn btn-success" th:href="@{|/${surveyId}/addquestion|}">Lisää
+                    kysymys</a></th>
+        </tr>
+        <tr>
+            <th>Kysymysteksti</th>
+            <th>Kysymystyyppi</th>
+            <th colspan="2"></th>
+        </tr>
         <tr th:each="question : ${questions}">
             <input type="hidden" name="questionId" th:value="${question.questionId}" />
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.questionType}"></td>
-            <td><input type="hidden" th:value="${question.orderNumber}" /></td>
-            <td><a th:href="@{|/${surveyId}/editquestion/${question.questionId}|}" class="btn btn-primary">Muokkaa</a></td>
-            <td><a th:href="@{|/${surveyId}/deletequestion/${question.questionId}|}" class="btn btn-danger">Poista</a></td>
+            <input type="hidden" th:value="${question.orderNumber}" />
+            <td><a th:href="@{|/${surveyId}/editquestion/${question.questionId}|}" class="btn btn-primary">Muokkaa</a>
+            </td>
+            <td><a th:href="@{|/${surveyId}/deletequestion/${question.questionId}|}" class="btn btn-danger">Poista</a>
+            </td>
         </tr>
-
     </table>
 </body>
+
 </html>
