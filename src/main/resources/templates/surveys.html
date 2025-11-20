@@ -9,28 +9,28 @@
 </head>
 <body>
     <h1>Kyselyt</h1>
-    <table>
+    <table class="table table-striped">
         <tr>
             <th>Otsikko</th>
             <th>Tekijä</th>
             <th>Kuvaus</th>
-            <th>Julkaisuajankohta</th>
+            <th>Avausajankohta</th>
             <th>Viimeinen vastausajankohta</th>
             <th>Vastausten määrä</th>
             <th></th> <!--edit-button-->
             <th></th> <!--delete-button-->
         </tr>
-        <tr th:each = "survey : ${surveys}"> <!--q = survey-->
+        <tr th:each = "survey : ${surveys}">
             <td th:text="${survey.title}"></td>
             <td>(tekijä)</td>
             <td th:text="${survey.description}"></td>
             <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
             <td>
-            <div th:text="${#temporals.format(survey.openingDate, 'dd.MM.yyyy')}"></div>
+            <div th:text="${#temporals.format(survey.openingDate, 'MMM d, yyyy')}"></div>
             <div th:text="${#temporals.format(survey.openingTime, 'HH:mm')}"></div>
             </td>
             <td>
-            <div th:text="${#temporals.format(survey.deadlineDate, 'dd.MM.yyyy')}"></div>
+            <div th:text="${#temporals.format(survey.deadlineDate, 'MMM d, yyyy')}"></div>
             <div th:text="${#temporals.format(survey.deadlineTime, 'HH:mm')}"></div>
             </td>
             <td>(vastauksia)</td>
@@ -38,6 +38,6 @@
             <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a></td>
         </tr>
     </table>
-    <a href="/addsurvey" class="btn btn-success">Lisää kysely</a>
+    <a href="/addsurvey" class="btn btn-success">Lisää uusi kysely</a>
 </body>
 </html>
