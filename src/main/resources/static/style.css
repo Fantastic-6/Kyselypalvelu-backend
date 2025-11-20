@@ -38,6 +38,10 @@ th {
   padding: 7px;
 }
 
+.no-border {
+    border: none !important;
+}
+
 form {
   margin: auto;
   width: 50%;
