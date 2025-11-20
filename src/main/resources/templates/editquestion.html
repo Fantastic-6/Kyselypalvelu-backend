@@ -23,6 +23,13 @@
           <input type="text" id="title" name="title" th:field="*{questionText}" required />
         </div>
 
+             <div>
+          <input id="required" name="isRequired" type="radio" value="TRUE"/>
+          <label for="required">Pakollinen</label>
+          <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked="TRUE" />
+          <label for="notRequired">Ei pakollinen</label>
+        </div>
+
         <div>
           <label for="typeSelection">Kysymyksen tyyppi:</label>
           <select id="typeSelection" name="typeSelection" th:field="*{questionType}">
@@ -31,13 +38,6 @@
             <option value="RADIO">Valitse 1</option>
             <option value="SCALE">Asteikko 1-5</option>
           </select>
-        </div>
-
-        <div>
-          <input id="required" name="isRequired" type="radio" value="TRUE"/>
-          <label for="required">Pakollinen</label>
-          <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked="TRUE" />
-          <label for="notRequired">Ei pakollinen</label>
         </div>
 
         <div>
