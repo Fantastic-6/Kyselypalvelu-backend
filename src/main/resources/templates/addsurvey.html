@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css" />
-    <title>Lisää kysely</title>
+    <title>Lisää uusi kysely</title>
 </head>
 
 <body>
-    <h1>Lisää kysely</h1>
+    <h1>Lisää uusi kysely</h1>
     <form th:object="${survey}" th:action="@{/savesurvey}" method="post">
         <label for="title">Kyselyn nimi</label>
         <input id="title" type="text" th:field="*{title}" required>

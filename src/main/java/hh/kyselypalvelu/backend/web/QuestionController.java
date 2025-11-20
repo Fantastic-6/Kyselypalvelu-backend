@@ -30,21 +30,64 @@ public class QuestionController {
     // QUESTIONS 
     @GetMapping("/{surveyId}/questions")
     public String questions(@PathVariable("surveyId") Long surveyId, Model model) {
-        model.addAttribute("survey", surveyRepository.findById(surveyId));
-        model.addAttribute("questions", questionRepository.findBySurvey(surveyRepository.findById(surveyId)));
+    Survey survey = surveyRepository.findById(surveyId).orElse(null);
+    model.addAttribute("survey", survey);
+    model.addAttribute("questions", questionRepository.findBySurvey(survey));
         return "questions";
     }
 
     // SAVE QUESTION
     @PostMapping("/{surveyId}/savequestion")
     public String saveQuestion(@PathVariable("surveyId") Long surveyId, Question question) {
-        questionRepository.save(question);
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        question.setSurvey(survey);
+        // save question first to get an id
+        Question saved = questionRepository.save(question);
+        // then persist options referencing the saved question
+        if (question.getOptions() != null) {
+            for (Option o : question.getOptions()) {
+                o.setQuestion(saved);
+                optionRepository.save(o);
+            }
+        }
         return "redirect:/{surveyId}/questions";
     }
     
     @PostMapping("/{surveyId}/editquestion/savequestion")
     public String saveEditedQuestion(@PathVariable("surveyId") Long surveyId, Question question) {
-        questionRepository.save(question);
+        // find question to edit question
+        if (question.getQuestionId() == null) {
+            // nothing to edit, treat as create
+            return saveQuestion(surveyId, question);
+        }
+        Question editedQuestion = questionRepository.findById(question.getQuestionId()).orElse(null);
+        if (editedQuestion == null) return "redirect:/{surveyId}/questions";
+        // update fields
+        editedQuestion.setQuestionText(question.getQuestionText());
+        editedQuestion.setQuestionType(question.getQuestionType());
+        editedQuestion.setIsRequired(question.getIsRequired());
+        editedQuestion.setOrderNumber(question.getOrderNumber());
+        editedQuestion.setSurvey(surveyRepository.findById(surveyId).orElse(null));
+        questionRepository.save(editedQuestion);
+        // delete previous options
+        java.util.List<Option> options = optionRepository.findByQuestionQuestionId(editedQuestion.getQuestionId());
+        if (options != null) {
+            for (Option opt : options) optionRepository.deleteById(opt.getOptionId());
+        }
+        // save incoming options
+        if (question.getOptions() != null) {
+            for (Option o : question.getOptions()) {
+                // skip empty or null titles (could be leftover empty inputs)
+                if (o == null) continue;
+                String t = o.getTitle();
+                if (t == "") continue;
+                if (t.trim().isEmpty()) continue;
+                // treat incoming as new records (we deleted previous ones), avoid merging deleted ids
+                o.setOptionId(null);
+                o.setQuestion(editedQuestion);
+                optionRepository.save(o);
+            }
+        }
         return "redirect:/{surveyId}/questions";
     }
     
@@ -69,54 +112,13 @@ public class QuestionController {
     // EDIT QUESTION
     @GetMapping("/{surveyId}/editquestion/{questionId}")
     public String editQuestion(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId, Model model) {
-        model.addAttribute("question", questionRepository.findById(questionId));
+    Question q = questionRepository.findById(questionId).orElse(null);
+    if (q != null) {
+        // fetch options explicitly so template can render them
+        java.util.List<Option> opts = optionRepository.findByQuestionQuestionId(q.getQuestionId());
+        q.setOptions(opts);
+    }
+    model.addAttribute("question", q);
         return "editquestion";
     }
-
-    // --------- OPTION CONTROLLERS ---------
-
-    // ADD OPTION (in addquestion.html)
-    @GetMapping("/{surveyId}/addquestion/{questionId}/addoption")
-    public String addOptionInEdit(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId, Model model) {
-        model.addAttribute("question", questionRepository.findById(questionId));
-        return "redirect:/{surveyId}/addquestion";
-    }
-
-    // ADD OPTION (in editquestion.html)
-      @GetMapping("/{surveyId}/editquestion/{questionId}/addoption")
-    public String addOptionInAdd(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId, Model model) {
-        model.addAttribute("question", questionRepository.findById(questionId));
-        return "redirect:/{surveyId}/editquestion";
-    }
-
-     // SAVE OPTION (in addquestion.html)
-    @PostMapping("/{surveyId}/addquestion/saveoption")
-    public String saveOptionInAdd(@PathVariable("surveyId") Long surveyId, Option option) {
-        optionRepository.save(option);
-        return "redirect:/{surveyId}/addquestion";
-    }
-
-    // SAVE OPTION (in editquestion.html)
-    @PostMapping("/{surveyId}/editquestion/saveoption")
-    public String saveOptionInEdit(@PathVariable("surveyId") Long surveyId, Option option) {
-        optionRepository.save(option);
-        return "redirect:/{surveyId}/editquestion";
-    }
-
-      // DELETE OPTION (in addquestion.html)
-    @GetMapping("/{surveyId}/addquestion/deleteoption/{optionId}")
-    public String deleteOptionInAdd(@PathVariable("surveyId") Long surveyId, @PathVariable("optionId") Long optionId) {
-        optionRepository.deleteById(optionId);
-        return "redirect:/{surveyId}/addquestion";
-    }
-
-    // DELETE OPTION (in editquestion.html)
-    @GetMapping("/{surveyId}/editquestion/deleteoption/{optionId}")
-    public String deleteOptionInEdit(@PathVariable("surveyId") Long surveyId, @PathVariable("optionId") Long optionId) {
-        optionRepository.deleteById(optionId);
-        return "redirect:/{surveyId}/editquestion";
-    }
-
-
-
 }
