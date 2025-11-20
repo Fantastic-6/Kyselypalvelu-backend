@@ -12,6 +12,7 @@
 </head>
 <body>
     <h1>Muokkaa Kyselyä</h1>
+    
    <table>
         <form th:object="${survey}" action="#" th:action="@{/savesurvey}" method="post">
             <input type="hidden" th:field="${survey.surveyId}">
@@ -28,11 +29,8 @@
 </body>
 
 <div>
-    <a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}" class="btn btn-primary">Kysymykset</a>
+    <a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}" class="btn btn-primary">Hallitse kysymyksiä</a>
 </div>
-        <div>
-        <a th:href="@{|/${surveyId}/addquestion|}">Lisää kysymys</a>
-        </div>
 
         <table>
     <tbody>
@@ -41,8 +39,6 @@
             <td th:text="${question.questionText}"></td>
             <td th:text="${question.questionType}"></td>
             <td><input type="hidden" th:value="${question.orderNumber}" /></td>
-            <td><a th:href="@{|/${surveyId}/editquestion/${question.questionId}|}" class="btn btn-primary">Muokkaa</a></td>
-            <td><a th:href="@{|/${surveyId}/deletequestion/${question.questionId}|}" class="btn btn-danger">Poista</a></td>
         </tr>
     </tbody>
 </table>
