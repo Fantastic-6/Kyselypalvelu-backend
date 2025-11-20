@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <html xmlns="http://www.thymeleaf.org">
 
 <head>
@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/style.css">
     <title>Muokkaa kyselyä</title>
-
 </head>
 
 <body>
@@ -30,8 +29,9 @@
     </form>
     <table>
         <tr class="no-border">
-            <th class="no-border"><a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}" class="btn btn-primary">Hallitse
-            kysymyksiä</a></th>
+            <th class="no-border"><a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}"
+                    class="btn btn-primary">Hallitse
+                    kysymyksiä</a></th>
         </tr>
         <tr>
             <th>Kysymykset</th>
