@@ -160,10 +160,10 @@ public class QuestionController {
     }
 
     // DELETE OPTION (in editquestion.html)
-    @GetMapping("/{surveyId}/editquestion/deleteoption/{optionId}")
-    public String deleteOptionInEdit(@PathVariable("surveyId") Long surveyId, @PathVariable("optionId") Long optionId) {
+    @GetMapping("/{surveyId}/editquestion/{questionId}/deleteoption/{optionId}")
+    public String deleteOptionInEdit(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId, @PathVariable("optionId") Long optionId) {
         optionRepository.deleteById(optionId);
-        return "redirect:/{surveyId}/editquestion";
+        return "redirect:/{surveyId}/editquestion/{questionId}".replace("{surveyId}", surveyId.toString()).replace("{questionId}", questionId.toString());
     }
 
 

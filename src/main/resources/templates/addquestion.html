@@ -42,6 +42,7 @@
 
     <div id="optionsContainer" style="display:none;">
       <label>Vaihtoehdot:</label><br>
+      
       <div id="optionFields"></div>
       <button type="button" onclick="addOptionField()">Lisää vaihtoehto</button>
     </div>
@@ -93,9 +94,29 @@
       optionInput.name = "options[" + index + "].title";
       optionInput.required = true;
 
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.textContent = 'Poista';
+  btn.className = 'btn btn-danger btn-sm';
+  btn.onclick = function() { row.remove(); reindexOptionFields(); };
+
       row.appendChild(hid);
-      row.appendChild(optionInput);
+  row.appendChild(optionInput);
+  row.appendChild(btn);
       fields.appendChild(row);
+    }
+
+    function reindexOptionFields() {
+      const rows = document.querySelectorAll('#optionFields .option-row');
+      rows.forEach((r, idx) => {
+        const hid = r.querySelector('input[type=hidden]');
+        const txt = r.querySelector('input[type=text]');
+        if (hid) hid.name = 'options[' + idx + '].optionId';
+        if (txt) {
+          txt.name = 'options[' + idx + '].title';
+          txt.placeholder = 'Vaihtoehto ' + (idx + 1);
+        }
+      });
     }
   </script>
 </body>
