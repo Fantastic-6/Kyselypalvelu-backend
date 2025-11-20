@@ -13,13 +13,21 @@
   <body>
     <div>
       <h1>Muokkaa kysymystä</h1>
-      <form th:object="${question}" method="post" action="#" th:action="@{savequestion}">
+      <form th:object="${question}" method="post" th:action="@{/{surveyId}/editquestion/savequestion(surveyId=${question.survey.surveyId})}">
 
         <input type="hidden" th:field="*{survey.surveyId}" />
+        <input type="hidden" th:field="*{questionId}" />
 
         <div>
           <label for="title">Kysymys:</label>
           <input type="text" id="title" name="title" th:field="*{questionText}" required />
+        </div>
+
+             <div>
+          <input id="required" name="isRequired" type="radio" value="TRUE"/>
+          <label for="required">Pakollinen</label>
+          <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked="TRUE" />
+          <label for="notRequired">Ei pakollinen</label>
         </div>
 
         <div>
@@ -32,23 +40,51 @@
           </select>
         </div>
 
-        <div>
-          <input id="required" name="isRequired" type="radio" value="TRUE"/>
-          <label for="required">Pakollinen</label>
-          <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked="TRUE" />
-          <label for="notRequired">Ei pakollinen</label>
+       <div>
+      <input type="hidden" id="priority" name="priority" th:field="*{orderNumber}" />
+    </div>
+
+        <div id="optionsContainer" style="margin-top:8px; display:none;">
+          <label>Vaihtoehdot:</label>
+          <div id="optionFields">
+            <div th:each="opt,iterStat : *{options}">
+              <div class="option-row">
+                <input type="hidden" th:name="${'options[' + iterStat.index + '].optionId'}" th:value="${opt.optionId}" />
+                <input type="text" th:name="${'options[' + iterStat.index + '].title'}" th:value="${opt.title}" />
+              </div>
+            </div>
+          </div>
+          <button type="button" onclick="addOptionField()">Lisää vaihtoehto</button>
         </div>
 
         <div>
-          <label for="priority">Prioriteetti:</label>
-          <input type="number" id="priority" name="priority" placeholder="Priority" required />
-        </div>
-
-        <div>
-          <input type="submit" value="Lisää kysymys" />
+          <input type="submit" value="Tallenna muutokset" />
         </div>
 
       </form>
     </div>
   </body>
+  <script>
+    function toggleOptions() {
+      const type = document.getElementById("typeSelection").value;
+      const container = document.getElementById("optionsContainer");
+      if (type === 'RADIO' || type === 'CHECKBOX') {
+        container.style.display = 'block';
+        // ensure at least one text input exists
+        if (document.querySelectorAll('#optionFields input[type=text]').length === 0) addOptionField();
+      } else {
+        container.style.display = 'none';
+      }
+    }
+
+    function addOptionField() {
+      const fields = document.getElementById('optionFields');
+      const index = fields.querySelectorAll('input[type=text]').length;
+      const hid = document.createElement('input'); hid.type = 'hidden'; hid.name = 'options[' + index + '].optionId'; hid.value = '';
+      const input = document.createElement('input'); input.type = 'text'; input.name = 'options[' + index + '].title'; input.placeholder = 'Vaihtoehto ' + (index+1);
+      fields.appendChild(hid); fields.appendChild(input);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() { try { toggleOptions(); } catch(e){} });
+  </script>
 </html>

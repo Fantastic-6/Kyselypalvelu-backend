@@ -25,7 +25,7 @@ public class QuestionRestController {
     // gets all questions by survey
     @GetMapping("/api/{surveyId}/questions")
     public @ResponseBody List<Question> surveyListRest(@PathVariable("surveyId") Long surveyId) {
-        return (List<Question>) qRepository.findBySurvey(sRepository.findById(surveyId));
+        return (List<Question>) qRepository.findBySurvey(sRepository.findById(surveyId).orElse(null));
     }
 
 }
