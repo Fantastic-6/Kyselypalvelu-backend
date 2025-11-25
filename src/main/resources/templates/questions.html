@@ -12,8 +12,9 @@
     <h1>Kysymykset</h1>
     <table>
         <tr class="no-border">
-            <th colspan="4" class="no-border"><a class="btn btn-success" th:href="@{|/${surveyId}/addquestion|}">Lisää
+            <th class="no-border"><a class="btn btn-success" th:href="@{|/${surveyId}/addquestion|}">Lisää
                     kysymys</a></th>
+            <th colspan="3" class="no-border"><a class="btn btn-primary" th:href="@{|/editsurvey/${surveyId}|}">Takaisin</a></th>
         </tr>
         <tr>
             <th>Kysymysteksti</th>
