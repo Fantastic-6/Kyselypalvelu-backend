@@ -26,7 +26,7 @@ public class ResponseRestController {
     // get all responses to a question
     @GetMapping("/api/{questionId}/responses")
     public @ResponseBody List<Response> responsesToQuestionListRest(@PathVariable() Long questionId) {
-        return (List<Response>) rRepository.findByQuestionId(questionId);
+        return (List<Response>) rRepository.findByQuestionQuestionId(questionId);
     }
 
     // TODO
