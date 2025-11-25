@@ -5,27 +5,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lisää kysymys</title>
-  <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    />
+  <link rel="stylesheet" href="/style.css" />
 </head>
+
 <body>
   <h1>Lisää kysymys</h1>
-
-  <form th:object="${question}" method="post" th:action="@{/{surveyId}/savequestion(surveyId=${question.survey.surveyId})}">
-
+  <form th:object="${question}" method="post"
+    th:action="@{/{surveyId}/savequestion(surveyId=${question.survey.surveyId})}">
     <input type="hidden" th:field="*{survey.surveyId}" />
 
-    <div>
-      <label for="title">Kysymys:</label><br>
-      <input type="text" id="title" th:field="*{questionText}" required>
-    </div>
+    <label for="title">Kysymys:</label><br>
+    <input type="text" id="title" th:field="*{questionText}" required>
 
-     <div>
+    <div class="optional">
       <input id="required" name="isRequired" type="radio" value="TRUE">
       <label for="required">Pakollinen</label>
-
       <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked>
       <label for="notRequired">Ei pakollinen</label>
     </div>
@@ -42,19 +36,12 @@
 
     <div id="optionsContainer" style="display:none;">
       <label>Vaihtoehdot:</label><br>
-      
       <div id="optionFields"></div>
-      <button type="button" onclick="addOptionField()">Uusi vaihtoehto</button>
+      <button class="btn btn-primary" type="button" onclick="addOptionField()">Uusi vaihtoehto</button>
     </div>
 
-    <div>
-      <input type="hidden" id="priority" name="priority" th:field="*{orderNumber}" />
-    </div>
-
-    <div>
-      <button type="submit">Lisää kysymys</button>
-    </div>
-
+    <input type="hidden" id="priority" name="priority" th:field="*{orderNumber}" />
+    <button class="btn btn-success" type="submit">Lisää kysymys</button>
   </form>
 
   <script>
@@ -76,8 +63,8 @@
 
     function addOptionField() {
       const optionFields = document.getElementById("optionFields");
-    // index starts at 0. length is the index for the new option.
-    // (querySelector is a method that finds elements matching the CSS selector, so here we count text input fields)
+      // index starts at 0. length is the index for the new option.
+      // (querySelector is a method that finds elements matching the CSS selector, so here we count text input fields)
       const index = optionFields.querySelectorAll("input[type=text]").length;
 
       const row = document.createElement('div');
@@ -95,18 +82,18 @@
       optionInput.name = "options[" + index + "].title";
       optionInput.required = true;
 
-  // delete button for the option
-  const deleteButton = document.createElement('button');
-  deleteButton.type = 'button';
-  deleteButton.textContent = 'Poista';
-  deleteButton.className = 'btn btn-danger btn-sm';
-  deleteButton.onclick = function() { row.remove(); reindexOptionFields(); };
+      // delete button for the option
+      const deleteButton = document.createElement('button');
+      deleteButton.type = 'button';
+      deleteButton.textContent = 'Poista';
+      deleteButton.className = 'btn btn-danger btn-sm';
+      deleteButton.onclick = function () { row.remove(); reindexOptionFields(); };
 
-  // append elements to the row div
+      // append elements to the row div
       row.appendChild(hiddenOptionId);
-  row.appendChild(optionInput);
-  row.appendChild(deleteButton);
-  // add all of the above to the optionFields container
+      row.appendChild(optionInput);
+      row.appendChild(deleteButton);
+      // add all of the above to the optionFields container
       optionFields.appendChild(row);
     }
 
