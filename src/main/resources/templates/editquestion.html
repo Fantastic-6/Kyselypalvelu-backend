@@ -56,7 +56,7 @@
               </div>
             </div>
           </div>
-          <button type="button" onclick="addOptionField()">Lisää vaihtoehto</button>
+          <button type="button" onclick="addOptionField()">Uusi vaihtoehto</button>
         </div>
 
         <div>
@@ -67,60 +67,66 @@
     </div>
   </body>
   <script>
+  // shows or hides the options container depending on selected question type
     function toggleOptions() {
       const type = document.getElementById("typeSelection").value;
       const container = document.getElementById("optionsContainer");
       if (type === 'RADIO' || type === 'CHECKBOX') {
         container.style.display = 'block';
-        // ensure at least one text input exists
-        if (document.querySelectorAll('#optionFields input[type=text]').length === 0) addOptionField();
+    // adds a field if none exist
+    if (document.querySelectorAll('#optionFields input[type=text]').length === 0) addOptionField();
       } else {
         container.style.display = 'none';
       }
     }
 
     function addOptionField() {
-  const fields = document.getElementById('optionFields');
-  const index = fields.querySelectorAll('input[type=text]').length;
+      const optionFields = document.getElementById('optionFields');
+    // index starts at 0. length is the index for the new option.
+    // (querySelector is a method that finds elements matching the CSS selector, so here we count text input fields)
+      const index = optionFields.querySelectorAll('input[type=text]').length;
 
-  const row = document.createElement('div');
-  row.className = 'option-row';
+      const row = document.createElement('div');
+      row.className = 'option-row';
 
-  const hid = document.createElement('input');
-  hid.type = 'hidden';
-  hid.name = 'options[' + index + '].optionId';
-  hid.value = '';
+      // create hidden input for optionId for server to keep track of options (if need to create new option, delete option, etc)
+      const hiddenOptionId = document.createElement('input');
+      hiddenOptionId.type = 'hidden';
+      hiddenOptionId.name = 'options[' + index + '].optionId';
+      hiddenOptionId.value = '';
 
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.name = 'options[' + index + '].title';
-  input.placeholder = 'Vaihtoehto ' + (index+1);
-  // keep input sizing similar to other inputs (no full-width form-control class)
-  input.className = '';
+      const optionInput = document.createElement('input');
+      optionInput.type = 'text';
+      optionInput.placeholder = 'Vaihtoehto ' + (index + 1);
+      optionInput.name = 'options[' + index + '].title';
+      optionInput.required = true;
 
-  const btn = document.createElement('button');
-  btn.type = 'button';
-  btn.className = 'btn btn-danger btn-sm';
-  btn.textContent = 'Poista';
-  btn.onclick = function() { row.remove(); reindexOptionFields(); };
+  // delete button for the option
+  const deleteButton = document.createElement('button');
+  deleteButton.type = 'button';
+  deleteButton.textContent = 'Poista';
+  deleteButton.className = 'btn btn-danger btn-sm';
+  deleteButton.onclick = function() { row.remove(); reindexOptionFields(); };
 
-  row.appendChild(hid);
-  row.appendChild(input);
-  row.appendChild(btn);
-  fields.appendChild(row);
-  reindexOptionFields();
+      row.appendChild(hiddenOptionId);
+  row.appendChild(optionInput);
+  row.appendChild(deleteButton);
+      optionFields.appendChild(row);
     }
 
+    //when DOM loads, initialise options UI
     document.addEventListener('DOMContentLoaded', function() { try { toggleOptions(); } catch(e){} });
+
+  // reindexes option fields after deletion to keep indices continuous
     function reindexOptionFields() {
       const rows = document.querySelectorAll('#optionFields .option-row');
-      rows.forEach((r, idx) => {
-        const hid = r.querySelector('input[type=hidden]');
-        const txt = r.querySelector('input[type=text]');
-        if (hid) hid.name = 'options[' + idx + '].optionId';
-        if (txt) {
-          txt.name = 'options[' + idx + '].title';
-          txt.placeholder = 'Vaihtoehto ' + (idx + 1);
+      rows.forEach((row, idNumber) => {
+        const hiddenOptionId = row.querySelector('input[type=hidden]');
+        const inputText = row.querySelector('input[type=text]');
+        if (hiddenOptionId) hiddenOptionId.name = 'options[' + idNumber + '].optionId';
+        if (inputText) {
+          inputText.name = 'options[' + idNumber + '].title';
+          inputText.placeholder = 'Vaihtoehto ' + (idNumber + 1);
         }
       });
     }
