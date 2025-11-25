@@ -20,19 +20,19 @@
     <div class="optional">
       <input id="required" name="isRequired" type="radio" value="TRUE">
       <label for="required">Pakollinen</label>
+    </div>
+    <div class="optional">
       <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked>
       <label for="notRequired">Ei pakollinen</label>
     </div>
 
-    <div>
-      <label for="typeSelection">Kysymyksen tyyppi:</label><br>
-      <select id="typeSelection" th:field="*{questionType}" onchange="toggleOptions()">
-        <option value="TEXT">Teksti</option>
-        <option value="CHECKBOX">Valitse 1 tai useampi</option>
-        <option value="RADIO">Valitse yksi</option>
-        <option value="SCALE">Asteikko 1–5</option>
-      </select>
-    </div>
+    <label for="typeSelection">Kysymyksen tyyppi:</label><br>
+    <select id="typeSelection" th:field="*{questionType}" onchange="toggleOptions()">
+      <option value="TEXT">Teksti</option>
+      <option value="CHECKBOX">Valitse 1 tai useampi</option>
+      <option value="RADIO">Valitse yksi</option>
+      <option value="SCALE">Asteikko 1–5</option>
+    </select>
 
     <div id="optionsContainer" style="display:none;">
       <label>Vaihtoehdot:</label><br>
