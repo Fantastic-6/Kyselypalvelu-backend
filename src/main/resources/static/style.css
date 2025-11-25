@@ -79,7 +79,7 @@ form div {
 }
 
 .optional input {
-  width: 10% !important;
+  width: fit-content;
 }
 
 #optionsContainer {

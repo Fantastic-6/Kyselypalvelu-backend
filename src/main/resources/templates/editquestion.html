@@ -16,25 +16,27 @@
 
     <input type="hidden" th:field="*{survey.surveyId}" />
     <input type="hidden" th:field="*{questionId}" />
-      <label for="title">Kysymys:</label>
-      <input type="text" id="title" name="title" th:field="*{questionText}" required />
+    <label for="title">Kysymys:</label>
+    <input type="text" id="title" name="title" th:field="*{questionText}" required />
 
     <div class="optional">
       <input id="required" name="isRequired" type="radio" value="TRUE" />
       <label for="required">Pakollinen</label>
+    </div>
+    <div class="optional">
       <input id="notRequired" name="isRequired" type="radio" value="FALSE" checked="TRUE" />
       <label for="notRequired">Ei pakollinen</label>
     </div>
 
-      <label for="typeSelection">Kysymyksen tyyppi:</label>
-      <select id="typeSelection" name="typeSelection" th:field="*{questionType}">
-        <option value="TEXT">Teksti</option>
-        <option value="CHECKBOX">Valitse 1 tai useampi</option>
-        <option value="RADIO">Valitse 1</option>
-        <option value="SCALE">Asteikko 1-5</option>
-      </select>
+    <label for="typeSelection">Kysymyksen tyyppi:</label>
+    <select id="typeSelection" name="typeSelection" th:field="*{questionType}">
+      <option value="TEXT">Teksti</option>
+      <option value="CHECKBOX">Valitse 1 tai useampi</option>
+      <option value="RADIO">Valitse 1</option>
+      <option value="SCALE">Asteikko 1-5</option>
+    </select>
 
-      <input type="hidden" id="priority" name="priority" th:field="*{orderNumber}" />
+    <input type="hidden" id="priority" name="priority" th:field="*{orderNumber}" />
 
     <div id="optionsContainer">
       <label>Vaihtoehdot:</label>
@@ -54,7 +56,7 @@
       <button class="btn btn-primary" type="button" onclick="addOptionField()">Uusi vaihtoehto</button>
     </div>
 
-      <input class="btn btn-success" type="submit" value="Tallenna muutokset" />
+    <input class="btn btn-success" type="submit" value="Tallenna muutokset" />
 
   </form>
 </body>
