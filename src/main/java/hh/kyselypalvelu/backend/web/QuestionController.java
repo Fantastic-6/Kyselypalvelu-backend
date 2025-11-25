@@ -121,4 +121,13 @@ public class QuestionController {
     model.addAttribute("question", q);
         return "editquestion";
     }
+
+    // DELETE OPTION
+    @GetMapping("/{surveyId}/editquestion/{questionId}/deleteoption/{optionId}")
+    public String deleteOption(@PathVariable("surveyId") Long surveyId, @PathVariable("questionId") Long questionId, @PathVariable("optionId") Long optionId) {
+        if (optionId != null) {
+                optionRepository.deleteById(optionId);
+        }
+        return "redirect:/{surveyId}/editquestion/{questionId}".replace("{surveyId}", String.valueOf(surveyId)).replace("{questionId}", String.valueOf(questionId));
+    }
 }
