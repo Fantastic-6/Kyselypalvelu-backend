@@ -28,10 +28,10 @@ public class Survey {
     @DateTimeFormat(pattern = "hh:mm")
     private LocalTime openingTime;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate openingDate;
 
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadlineDate;
 
     @DateTimeFormat(pattern = "hh:mm")
