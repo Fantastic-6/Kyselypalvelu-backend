@@ -1,50 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <html xmlns="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
-    />
-    <title>Kyselyn muokkaus</title>
+    <link rel="stylesheet" href="/style.css">
+    <title>Muokkaa kyselyä</title>
 </head>
+
 <body>
-    <h1>Muokkaa Kyselyä</h1>
-   <table>
-        <form th:object="${survey}" action="#" th:action="@{/savesurvey}" method="post">
-            <input type="hidden" th:field="${survey.surveyId}">
-            <p>Otsikko: <input type="text" th:field="*{title}"></p>
-            <p>Kuvaus: <input type="text" th:field="*{description}"></p>
-            <p>Avauspäivämäärä: <input type="date" th:field="*{openingDate}"></p>
-            <p>Avausaika: <input type="time" th:field="*{openingTime}"></p>
-            <p>Sulkemispäivämäärä: <input type="date" th:field="*{deadlineDate}"></p>
-            <p>Sulkemisaika: <input type="time" th:field="*{deadlineTime}"></p>
-            <input type="submit" value="Tallenna">
-        </form>
-        </td>
-    </tr>
+    <h1>Muokkaa kyselyä</h1>
+    <form th:object="${survey}" action="#" th:action="@{/savesurvey}" method="post">
+        <input type="hidden" th:field="${survey.surveyId}">
+        <label for="title">Kyselyn nimi</label>
+        <input id="title" type="text" th:field="*{title}" required>
+        <label for="description">Kyselyn kuvaus</label>
+        <input id="description" type="text" th:field="*{description}" required>
+        <label for="openingDate">Avauspäivämäärä</label>
+        <input id="openingDate" type="date" th:field="*{openingDate}" required>
+        <label for="openingTime">Avausaika</label>
+        <input id="openingTime" type="time" th:field="*{openingTime}" required>
+        <label for="deadlineDate">Sulkeutumispäivämäärä</label>
+        <input id="deadlineDate" type="date" th:field="*{deadlineDate}" required>
+        <label for="deadlineTime">Sulkeutumisaika</label>
+        <input id="deadlineTime" type="time" th:field="*{deadlineTime}" required>
+        <input class="btn btn-success" type="submit" value="Tallenna">
+    </form>
+    <table>
+        <tr class="no-border">
+            <th class="no-border"><a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}"
+                    class="btn btn-primary">Hallitse
+                    kysymyksiä</a></th>
+        </tr>
+        <tr>
+            <th>Kysymykset</th>
+        </tr>
+        <tr th:each="question : ${questions}">
+            <td th:text="${question.questionText}"></td>
+        </tr>
+    </table>
 </body>
 
-<div>
-    <a th:href="@{/{surveyId}/questions(surveyId=${survey.surveyId})}" class="btn btn-primary">Kysymykset</a>
-</div>
-        <div>
-        <a th:href="@{|/${surveyId}/addquestion|}">Lisää kysymys</a>
-        </div>
-
-        <table>
-    <tbody>
-        <tr th:each="question : ${questions}">
-            <td><input type="hidden" th:value="${question.questionId}" /></td>
-            <td th:text="${question.questionText}"></td>
-            <td th:text="${question.questionType}"></td>
-            <td><input type="hidden" th:value="${question.orderNumber}" /></td>
-            <td><a th:href="@{|/${surveyId}/editquestion/${question.questionId}|}" class="btn btn-primary">Muokkaa</a></td>
-            <td><a th:href="@{|/${surveyId}/deletequestion/${question.questionId}|}" class="btn btn-danger">Poista</a></td>
-        </tr>
-    </tbody>
-</table>
-  
 </html>

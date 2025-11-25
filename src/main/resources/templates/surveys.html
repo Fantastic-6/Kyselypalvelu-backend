@@ -1,43 +1,52 @@
 <!DOCTYPE html>
 <html lang="fi">
 <html xmlns="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css">
     <title>Kyselyt</title>
 </head>
+
 <body>
     <h1>Kyselyt</h1>
-    <table>
+    <table class="table table-striped">
         <tr>
             <th>Otsikko</th>
             <th>Tekijä</th>
             <th>Kuvaus</th>
-            <th>Julkaisuajankohta</th>
+            <th>Avausajankohta</th>
             <th>Viimeinen vastausajankohta</th>
             <th>Vastausten määrä</th>
-            <th></th> <!--edit-button-->
-            <th></th> <!--delete-button-->
+            <th colspan="2"></th>
         </tr>
-        <tr th:each = "survey : ${surveys}"> <!--q = survey-->
+        <tr th:each="survey : ${surveys}">
             <td th:text="${survey.title}"></td>
             <td>(tekijä)</td>
             <td th:text="${survey.description}"></td>
             <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
             <td>
-            <div th:text="${#temporals.format(survey.openingDate, 'dd.MM.yyyy')}"></div>
-            <div th:text="${#temporals.format(survey.openingTime, 'HH:mm')}"></div>
+                <div th:text="${#temporals.format(survey.openingDate, 'd. MMMM yyyy', #locale.forLanguageTag('fi'))}"></div>
+                <div th:text="${#temporals.format(survey.openingTime, 'HH:mm')}"></div>
             </td>
             <td>
-            <div th:text="${#temporals.format(survey.deadlineDate, 'dd.MM.yyyy')}"></div>
-            <div th:text="${#temporals.format(survey.deadlineTime, 'HH:mm')}"></div>
+                <div th:text="${#temporals.format(survey.deadlineDate, 'd. MMMM yyyy', #locale.forLanguageTag('fi'))}"></div>
+                <div th:text="${#temporals.format(survey.deadlineTime, 'HH:mm')}"></div>
             </td>
             <td>(vastauksia)</td>
-            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-primary">Muokkaa</a></td>
-            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a></td>
+            <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-primary">Muokkaa</a>
+            </td>
+            <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a>
+            </td>
         </tr>
+        <tr class="no-border">
+            <td class="no-border" colspan="8">
+                <a href="/addsurvey" class="btn btn-success">Lisää kysely</a>
+            </td>
+        </tr>
+
     </table>
-    <a href="/addsurvey" class="btn btn-success">Lisää kysely</a>
 </body>
+
 </html>
