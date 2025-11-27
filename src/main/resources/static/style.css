@@ -74,8 +74,11 @@ textarea {
 }
 
 form div {
-  width: 100% !important;
   margin: 2px 0;
+}
+
+.optional {
+  width: 100%;
 }
 
 .optional input {
