@@ -28,8 +28,8 @@
       <label for="notRequired">Ei pakollinen</label>
     </div>
 
-    <label for="typeSelection">Kysymyksen tyyppi:</label>
-    <select id="typeSelection" name="typeSelection" th:field="*{questionType}">
+  <label for="typeSelection">Kysymyksen tyyppi:</label>
+  <select id="typeSelection" name="typeSelection" th:field="*{questionType}" onchange="toggleOptions()">
       <option value="TEXT">Teksti</option>
       <option value="CHECKBOX">Valitse 1 tai useampi</option>
       <option value="RADIO">Valitse 1</option>
@@ -38,7 +38,7 @@
 
     <input type="hidden" id="priority" name="priority" th:field="*{orderNumber}" />
 
-    <div id="optionsContainer">
+  <div id="optionsContainer" style="display:none;">
       <label>Vaihtoehdot:</label>
       <div id="optionFields">
         <div th:each="opt,iterStat : *{options}">
