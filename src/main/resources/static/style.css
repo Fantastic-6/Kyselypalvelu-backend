@@ -74,17 +74,18 @@ textarea {
 }
 
 form div {
-  width: 100%;
+  width: 100% !important;
   margin: 2px 0;
 }
 
 .optional input {
-  width: fit-content;
+  width: fit-content !important;
 }
 
 #optionsContainer {
   margin-top: 8px;
   display: none;
+  width: 100% !important;
 }
 
 .btn {
