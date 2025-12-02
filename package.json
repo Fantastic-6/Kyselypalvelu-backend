@@ -1,0 +1,12 @@
+{
+  "name": "kyselypalvelu-backend",
+  "version": "0.0.1",
+  "private": true,
+  "engines": {
+    "node": ">=14"
+  },
+  "scripts": {
+    "dev": "./mvnw spring-boot:run",
+    "start": "./mvnw spring-boot:run"
+  }
+}

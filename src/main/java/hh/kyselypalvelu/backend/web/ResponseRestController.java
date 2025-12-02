@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import hh.kyselypalvelu.backend.domain.ResponseRepository;
 import hh.kyselypalvelu.backend.domain.Response;
 
+@RestController
 public class ResponseRestController {
     private final ResponseRepository rRepository;
 
@@ -29,9 +32,9 @@ public class ResponseRestController {
         return (List<Response>) rRepository.findByQuestionQuestionId(questionId);
     }
 
-    // TODO
     @PostMapping("/api/responses")
-    public ResponseEntity<Response> addResponse() {
-        return null;
+    public ResponseEntity<Response> addResponse(Response response) {
+        Response saved = rRepository.save(response);
+        return ResponseEntity.ok(saved);
     }
 }
