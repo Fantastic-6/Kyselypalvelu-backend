@@ -29,7 +29,12 @@ public class ResponseRestController {
     // get all responses to a question
     @GetMapping("/api/{questionId}/responses")
     public @ResponseBody List<Response> responsesToQuestionListRest(@PathVariable() Long questionId) {
-        return (List<Response>) rRepository.findByQuestionQuestionId(questionId);
+        return rRepository.findResponsesByQuestionId(questionId);
+    }
+
+    @GetMapping("/api/{questionId}/responses/{responseId}")
+    public @ResponseBody Response responseById(@PathVariable() Long questionId, @PathVariable() Long responseId) {
+        return rRepository.findByResponseId(responseId);
     }
 
     @PostMapping("/api/responses")

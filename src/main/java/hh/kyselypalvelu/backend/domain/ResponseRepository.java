@@ -5,5 +5,6 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 public interface ResponseRepository extends CrudRepository<Response, Long> {
-    List<Response> findByQuestionQuestionId(Long questionId);
+    List<Response> findResponsesByQuestionId(Long questionId);
+    Response findByResponseId(Long responseId);
 }
