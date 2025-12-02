@@ -10,14 +10,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import hh.kyselypalvelu.backend.domain.ResponseRepository;
+import hh.kyselypalvelu.backend.domain.QuestionRepository;
 import hh.kyselypalvelu.backend.domain.Response;
 
 @RestController
 public class ResponseRestController {
+
+    private final QuestionRepository questionRepository;
     private final ResponseRepository rRepository;
 
-    public ResponseRestController(ResponseRepository rRepository) {
+    public ResponseRestController(ResponseRepository rRepository, QuestionRepository questionRepository) {
         this.rRepository = rRepository;
+        this.questionRepository = questionRepository;
     }
 
     // get all responses
@@ -37,8 +41,9 @@ public class ResponseRestController {
         return rRepository.findByResponseId(responseId);
     }
 
-    @PostMapping("/api/responses")
-    public ResponseEntity<Response> addResponse(Response response) {
+    @PostMapping("/api/{questionId}/responses")
+    public ResponseEntity<Response> addResponse(@PathVariable() Long questionId, Response response) {
+        response.setQuestion(questionRepository.findByQuestionId(questionId));
         Response saved = rRepository.save(response);
         return ResponseEntity.ok(saved);
     }
