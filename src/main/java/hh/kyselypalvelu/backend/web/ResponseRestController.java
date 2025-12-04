@@ -1,5 +1,6 @@
 package hh.kyselypalvelu.backend.web;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -44,6 +45,7 @@ public class ResponseRestController {
     @PostMapping("/api/{questionId}/responses")
     public ResponseEntity<Response> addResponse(@PathVariable() Long questionId, Response response) {
         response.setQuestion(questionRepository.findByQuestionId(questionId));
+        response.setTimeSubmitted(LocalDateTime.now());
         Response saved = rRepository.save(response);
         return ResponseEntity.ok(saved);
     }
