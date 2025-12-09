@@ -105,9 +105,17 @@ form div {
   border: none;
 }
 
+table .btn {
+  width: auto;
+  max-width: none;
+  padding: 5px 8px;
+  font-size: 12px;
+}
+
 .btn-primary:hover,
 .btn-danger:hover,
-.btn-success:hover {
+.btn-success:hover,
+.btn-info:hover {
   background-color: var(--hoverColor) !important;
 }
 
@@ -121,4 +129,8 @@ form div {
 
 .btn-success {
   background-color: var(--successColor);
+}
+
+.btn-info {
+  background-color: var(--accentColor);
 }
