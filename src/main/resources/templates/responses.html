@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fi">
+<html xmlns="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Vastaukset</title>
+</head>
+
+<body>
+    <h1 th:text="'Vastaukset kyselyyn: ' + ${survey.title}"></h1>
+    
+    <div>
+        <a href="/surveys" class="btn btn-secondary">Takaisin kyselyihin</a>
+    </div>
+    
+    <table class="table table-striped">
+        <tr>
+            <th>Kysymys</th>
+            <th>Vastaus</th>
+            <th>Vastausaika</th>
+            <th>Sessio</th>
+        </tr>
+        <tr th:each="response : ${responses}">
+            <td th:text="${response.question.questionText}"></td>
+            <td th:text="${response.responseText}"></td>
+            <td th:text="${#temporals.format(response.timeSubmitted, 'd. MMMM yyyy HH:mm:ss', #locale.forLanguageTag('fi'))}"></td>
+            <td th:text="${response.session}"></td>
+        </tr>
+    </table>
+    
+</body>
+
+</html>

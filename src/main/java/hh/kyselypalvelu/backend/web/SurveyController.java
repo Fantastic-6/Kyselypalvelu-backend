@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import hh.kyselypalvelu.backend.domain.QuestionRepository;
+import hh.kyselypalvelu.backend.domain.ResponseRepository;
 import hh.kyselypalvelu.backend.domain.Survey;
 import hh.kyselypalvelu.backend.domain.SurveyRepository;
 
@@ -18,10 +19,12 @@ import hh.kyselypalvelu.backend.domain.SurveyRepository;
 public class SurveyController {
     private final SurveyRepository sRepository;
     private final QuestionRepository qRepository;
+    private final ResponseRepository rRepository;
 
-    public SurveyController(SurveyRepository sRepository, QuestionRepository qRepository) {
+    public SurveyController(SurveyRepository sRepository, QuestionRepository qRepository, ResponseRepository rRepository) {
         this.sRepository = sRepository;
         this.qRepository = qRepository;
+        this.rRepository = rRepository;
     }
 
     @GetMapping({ "/", "/surveys" })
@@ -57,6 +60,14 @@ public class SurveyController {
     model.addAttribute("survey", survey);
     model.addAttribute("questions", qRepository.findBySurvey(survey));
         return "editsurvey";
+    }
+
+    @GetMapping("/survey/{surveyId}/responses")
+    public String getSurveyResponses(@PathVariable("surveyId") Long surveyId, Model model) {
+        var survey = sRepository.findById(surveyId).orElse(null);
+        model.addAttribute("survey", survey);
+        model.addAttribute("responses", rRepository.findByQuestionSurveySurveyId(surveyId));
+        return "responses";
     }
 
 }
