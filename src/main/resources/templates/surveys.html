@@ -19,7 +19,7 @@
             <th>Avausajankohta</th>
             <th>Viimeinen vastausajankohta</th>
             <th>Vastausten määrä</th>
-            <th colspan="2"></th>
+            <th colspan="3"></th>
         </tr>
         <tr th:each="survey : ${surveys}">
             <td th:text="${survey.title}"></td>
@@ -35,6 +35,8 @@
                 <div th:text="${#temporals.format(survey.deadlineTime, 'HH:mm')}"></div>
             </td>
             <td>(vastauksia)</td>
+            <td><a th:href="@{/survey/{surveyId}/responses(surveyId=${survey.surveyId})}" class="btn btn-info">Vastaukset</a>
+            </td>
             <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-primary">Muokkaa</a>
             </td>
             <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a>

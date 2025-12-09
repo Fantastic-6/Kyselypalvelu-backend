@@ -7,4 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 public interface ResponseRepository extends CrudRepository<Response, Long> {
     List<Response> findByQuestionQuestionId(Long questionId);
     Response findByResponseId(Long responseId);
+    List<Response> findByQuestionSurveySurveyId(Long surveyId);
 }
