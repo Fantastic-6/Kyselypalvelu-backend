@@ -14,7 +14,6 @@
     <table class="table table-striped">
         <tr>
             <th>Otsikko</th>
-            <th>Tekijä</th>
             <th>Kuvaus</th>
             <th>Avausajankohta</th>
             <th>Viimeinen vastausajankohta</th>
@@ -23,7 +22,6 @@
         </tr>
         <tr th:each="survey : ${surveys}">
             <td th:text="${survey.title}"></td>
-            <td>(tekijä)</td>
             <td th:text="${survey.description}"></td>
             <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
             <td>
