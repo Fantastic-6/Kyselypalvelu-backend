@@ -12,9 +12,13 @@
 <body>
     <h1 th:text="'Vastaukset kyselyyn: ' + ${survey.title}"></h1>
     
-    <div>
-        <a href="/surveys" class="btn btn-secondary">Takaisin kyselyihin</a>
-    </div>
+     <table>
+        <tr class="no-border">
+            <th class="no-border">
+                <a class="btn btn-primary" th:href="@{/surveys}">Takaisin</a>
+            </th>
+        </tr>
+    </table>
     
     <table class="table table-striped">
         <tr>
