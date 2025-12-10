@@ -83,11 +83,8 @@ public class SurveyController {
     @GetMapping("/survey/{surveyId}/responses")
     public String getSurveyResponses(@PathVariable("surveyId") Long surveyId, Model model) {
         var survey = sRepository.findById(surveyId).orElse(null);
-        List<Response> responses = rRepository.findByQuestionSurveySurveyId(surveyId);
-        Collections.sort(responses, (r1, r2) -> Math.toIntExact(r1.getSession())
-                - Math.toIntExact(r2.getSession()));
         model.addAttribute("survey", survey);
-        model.addAttribute("responses", responses);
+        model.addAttribute("responses", rRepository.findByQuestionSurveySurveyIdOrderBySessionAsc(surveyId));
         return "responses";
     }
 
