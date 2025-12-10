@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface ResponseRepository extends CrudRepository<Response, Long> {
     List<Response> findByQuestionQuestionId(Long questionId);
+    List<Response> findByQuestionSurveySurveyIdOrderBySessionAsc(Long surveyId);
     Response findByResponseId(Long responseId);
 
     // count number of distinct participants (sessions) for a survey. JPA named method didn't work, so using @Query instead
