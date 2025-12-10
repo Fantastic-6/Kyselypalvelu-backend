@@ -36,6 +36,7 @@ public class SurveyController {
     public String getSurveys(Model model) {
     List<Survey> surveys = (List<Survey>) sRepository.findAll();
 
+    // count participants for each survey
     Map<Long, Long> participantCounts = new HashMap<>();
     for (Survey survey : surveys) {
         long count = rRepository.countParticipants(survey.getSurveyId());
