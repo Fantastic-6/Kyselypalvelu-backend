@@ -29,6 +29,19 @@ public class SurveyController {
 
     @GetMapping({ "/", "/surveys" })
     public String getSurveys(Model model) {
+    List<Survey> surveys = (List<Survey>) sRepository.findAll();
+
+    // count participants for each survey
+    Map<Long, Long> participantCounts = new HashMap<>();
+    for (Survey survey : surveys) {
+        long count = rRepository.countParticipants(survey.getSurveyId());
+        participantCounts.put(survey.getSurveyId(), count);
+    }
+
+    model.addAttribute("surveys", surveys);
+    model.addAttribute("participantCounts", participantCounts);
+
+    return "surveys";
         model.addAttribute("surveys", sRepository.findAll());
         return "surveys";
     }
