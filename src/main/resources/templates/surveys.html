@@ -14,6 +14,7 @@
     <table class="table table-striped">
         <tr>
             <th>Otsikko</th>
+            <th>Tekijä</th>
             <th>Kuvaus</th>
             <th>Avausajankohta</th>
             <th>Viimeinen vastausajankohta</th>
@@ -22,6 +23,7 @@
         </tr>
         <tr th:each="survey : ${surveys}">
             <td th:text="${survey.title}"></td>
+            <td>(tekijä)</td>
             <td th:text="${survey.description}"></td>
             <!--Temporals.format muuttaa daten ja timen luettavaan tekstimuotoon HTML-sivulle (välttää errorin kun poistaa sekuntit näkyviltä)-->
             <td>
@@ -32,7 +34,9 @@
                 <div th:text="${#temporals.format(survey.deadlineDate, 'd. MMMM yyyy', #locale.forLanguageTag('fi'))}"></div>
                 <div th:text="${#temporals.format(survey.deadlineTime, 'HH:mm')}"></div>
             </td>
-              <td th:text="${participantCounts[survey.surveyId]}">0</td>
+            <td>(vastauksia)</td>
+            <td><a th:href="@{/survey/{surveyId}/responses(surveyId=${survey.surveyId})}" class="btn btn-info">Vastaukset</a>
+            </td>
             <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-primary">Muokkaa</a>
             </td>
             <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a>
