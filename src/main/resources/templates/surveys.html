@@ -32,7 +32,8 @@
                 <div th:text="${#temporals.format(survey.deadlineDate, 'd. MMMM yyyy', #locale.forLanguageTag('fi'))}"></div>
                 <div th:text="${#temporals.format(survey.deadlineTime, 'HH:mm')}"></div>
             </td>
-              <td th:text="${participantCounts[survey.surveyId]}">0</td>
+            <!-- number of participants -->
+              <td th:text="${participantCounts[survey.surveyId]}">0</td> 
             <td><a th:href="@{/editsurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-primary">Muokkaa</a>
             </td>
             <td><a th:href="@{/deletesurvey/{surveyId}(surveyId=${survey.surveyId})}" class="btn btn-danger">Poista</a>

@@ -10,7 +10,7 @@ public interface ResponseRepository extends CrudRepository<Response, Long> {
     List<Response> findByQuestionQuestionId(Long questionId);
     Response findByResponseId(Long responseId);
 
-    // count number of distinct participants (sessions) for a survey. JPA named method didn't work, so using @Query
+    // count number of distinct participants (sessions) for a survey. JPA named method didn't work, so using @Query instead
     @Query("""
         SELECT COUNT(DISTINCT r.session)
         FROM Response r
