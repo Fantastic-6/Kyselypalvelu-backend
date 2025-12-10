@@ -7,6 +7,7 @@ import hh.kyselypalvelu.backend.domain.Survey;
 import hh.kyselypalvelu.backend.domain.SurveyRepository;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,5 +30,22 @@ public class SurveyRestController {
     @GetMapping("/api/survey/{surveyId}")
     public @ResponseBody Survey surveyRest(@PathVariable("surveyId") Long surveyId) {
 	return sRepository.findBySurveyId(surveyId);
-}    
+}   
+
+@GetMapping("/api/active-surveys")
+public @ResponseBody List<Survey> getActiveSurveys() {
+    LocalDate today = LocalDate.now();
+    LocalTime now = LocalTime.now();
+
+    return ((List<Survey>) sRepository.findAll()).stream()
+        .filter(survey -> {
+            boolean afterOpening = !today.isBefore(survey.getOpeningDate()) ||
+                                   (today.isEqual(survey.getOpeningDate()) && !now.isBefore(survey.getOpeningTime()));
+            boolean beforeDeadline = !today.isAfter(survey.getDeadlineDate()) ||
+                                     (today.isEqual(survey.getDeadlineDate()) && !now.isAfter(survey.getDeadlineTime()));
+            return afterOpening && beforeDeadline;
+        })
+        .toList();
+}
+
 }
