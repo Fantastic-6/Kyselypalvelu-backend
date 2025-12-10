@@ -77,4 +77,12 @@ public class SurveyController {
         return "editsurvey";
     }
 
+    @GetMapping("/survey/{surveyId}/responses")
+    public String getSurveyResponses(@PathVariable("surveyId") Long surveyId, Model model) {
+        var survey = sRepository.findById(surveyId).orElse(null);
+        model.addAttribute("survey", survey);
+        model.addAttribute("responses", rRepository.findByQuestionSurveySurveyId(surveyId));
+        return "responses";
+    }
+
 }
