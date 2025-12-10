@@ -2,6 +2,9 @@ package hh.kyselypalvelu.backend.web;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,8 +44,7 @@ public class SurveyController {
     model.addAttribute("surveys", surveys);
     model.addAttribute("participantCounts", participantCounts);
 
-    return "surveys";
-        model.addAttribute("surveys", sRepository.findAll());
+    model.addAttribute("surveys", sRepository.findAll());
         return "surveys";
     }
 
